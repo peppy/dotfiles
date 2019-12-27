@@ -1,0 +1,13 @@
+#! /bin/bash
+
+tag=$(date +%Y.%-m%d.0);
+git checkout -f master;
+git pull upstream master;
+
+i=0
+until git tag $tag; do
+  ((i=i+1))
+  tag=$(date +%Y.%-m%d.$i);
+done
+
+git push upstream $tag

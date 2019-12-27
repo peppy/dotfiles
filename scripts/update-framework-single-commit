@@ -1,0 +1,11 @@
+#! /bin/bash
+
+version=$(cd ../osu-framework; hub release -L1)
+
+sed -i '' -e "s/ppy.osu.Framework\" Version=\"[^\"]*\"/ppy.osu.Framework\" Version=\"${version}\"/g" osu.Game/osu.Game.csproj
+sed -i '' -e "s/ppy.osu.Framework\" Version=\"[^\"]*\"/ppy.osu.Framework\" Version=\"${version}\"/g" osu.iOS.props
+sed -i '' -e "s/ppy.osu.Framework.iOS\" Version=\"[^\"]*\"/ppy.osu.Framework.iOS\" Version=\"${version}\"/g" osu.iOS.props
+sed -i '' -e "s/ppy.osu.Framework.Android\" Version=\"[^\"]*\"/ppy.osu.Framework.Android\" Version=\"${version}\"/g" osu.Android.props
+
+git commit -a -m "Update framework"
+git push
