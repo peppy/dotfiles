@@ -1,0 +1,10 @@
+#! /bin/bash
+
+git checkout -f master;
+git pull origin master;
+
+git checkout $1;
+git reset --hard origin/$1;
+git merge origin/master;
+
+git push origin $1;
