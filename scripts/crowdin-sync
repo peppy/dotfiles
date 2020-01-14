@@ -12,4 +12,4 @@ git merge upstream/master;
 crowdin download -b master;
 git commit -a -m "Update translations from crowdin";
 git push;
-git pull-request -m "Update translations from crowdin";
+hub pull-request -m "Update translations from crowdin";
