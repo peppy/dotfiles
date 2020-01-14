@@ -1,0 +1,15 @@
+#! /bin/bash
+
+git btm;
+# upload new changes to translation format (git -> crowdin)
+crowdin upload sources -b master;
+
+# download new contributed translations (crowdin -> git)
+git fetch upstream;
+git checkout l10n_master;
+git reset --hard upstream/l10n_master;
+git merge upstream/master;
+crowdin download -b master;
+git commit -a -m "Update translations from crowdin";
+git push;
+git pull-request -m "Update translations from crowdin";
