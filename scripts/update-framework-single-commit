@@ -8,4 +8,3 @@ sed -i '' -e "s/ppy.osu.Framework.iOS\" Version=\"[^\"]*\"/ppy.osu.Framework.iOS
 sed -i '' -e "s/ppy.osu.Framework.Android\" Version=\"[^\"]*\"/ppy.osu.Framework.Android\" Version=\"${version}\"/g" osu.Android.props
 
 git commit -a -m "Update framework"
-git push
