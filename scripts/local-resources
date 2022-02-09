@@ -1,0 +1,11 @@
+#! /usr/local/bin/fish
+
+set CSPROJ "osu.Game/osu.Game.csproj";
+set SLN "osu.sln";
+dotnet remove $CSPROJ package ppy.osu.Game.Resources;
+dotnet sln $SLN add ../osu-resources/osu.Game.Resources/osu.Game.Resources.csproj;
+dotnet add $CSPROJ reference ../osu-resources/osu.Game.Resources/osu.Game.Resources.csproj;
+set SLNF "osu.Desktop.slnf";
+set tmp (mktemp);
+jq ".solution.projects += [\"../osu-resources/osu.Game.Resources/osu.Game.Resources.csproj\"]" osu.Desktop.slnf > $tmp;
+mv -f $tmp $SLNF

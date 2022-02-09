@@ -1,0 +1,20 @@
+#! /usr/local/bin/fish
+
+set CSPROJ "osu.Game/osu.Game.csproj";
+set SLN "osu.sln";
+set SLNF "osu.Desktop.slnf";
+
+dotnet remove $CSPROJ package ppy.osu.Framework;
+dotnet add $CSPROJ reference ../osu-framework/osu.Framework/osu.Framework.csproj;
+set tmp (mktemp);
+jq ".solution.projects += [\"../osu-framework/osu.Framework/osu.Framework.csproj\", \"../osu-framework/osu.Framework/osu.Framework.NativeLibs.csproj\"]" osu.Desktop.slnf > $tmp;
+mv -f $tmp $SLNF
+
+# iOS
+set PROPS "osu.iOS.props";
+set CSPROJ "osu.iOS/osu.iOS.csproj";
+
+sed -i "" -e "s/<PackageReference Include=\"ppy\.osu\.Framework\".*\$/<ProjectReference Include=\"..\/..\/osu-framework\/osu.Framework\/osu.Framework.csproj\" \/>/g" $PROPS;
+sed -i "" -e "s/<PackageReference Include=\"ppy\.osu\.Framework\.iOS\".*\$/<ProjectReference Include=\"..\/..\/osu-framework\/osu.Framework.iOS\/osu.Framework.iOS.csproj\" \/>/g" $PROPS;
+dotnet sln $SLN add ../osu-framework/osu.Framework/osu.Framework.csproj ../osu-framework/osu.Framework.iOS/osu.Framework.iOS.csproj ../osu-framework/osu.Framework.NativeLibs/osu.Framework.NativeLibs.csproj;
+

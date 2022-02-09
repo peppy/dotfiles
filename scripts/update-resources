@@ -1,0 +1,15 @@
+#! /bin/bash
+
+version=$(cd ../osu-resources; hub release -L1)
+
+git btm
+git checkout -B update-resources
+
+sed -i '' -e "s/ppy.osu.Game.Resources\" Version=\"[^\"]*\"/ppy.osu.Game.Resources\" Version=\"${version}\"/g" osu.Game/osu.Game.csproj
+sed -i '' -e "s/ppy.osu.Game.Resources\" Version=\"[^\"]*\"/ppy.osu.Game.Resources\" Version=\"${version}\"/g" osu.iOS.props
+sed -i '' -e "s/ppy.osu.Game.Resources\" Version=\"[^\"]*\"/ppy.osu.Game.Resources\" Version=\"${version}\"/g" osu.Android.props
+
+git commit -a -m "Update resources"
+git push --force --set-upstream origin update-resources
+
+hub pull-request

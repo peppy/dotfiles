@@ -1,6 +1,6 @@
 #! /bin/bash
 
-version=$(cd ../osu-framework; hub release -L1)
+version=$(cd ../osu-framework; gh release list -L1 | head -n1 | awk '{print $1;}')
 
 git btm
 git checkout -B update-framework
@@ -13,4 +13,4 @@ sed -i '' -e "s/ppy.osu.Framework.Android\" Version=\"[^\"]*\"/ppy.osu.Framework
 git commit -a -m "Update framework"
 git push --force --set-upstream origin update-framework
 
-hub pull-request -m "Update framework"
+hub pull-request
