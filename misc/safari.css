@@ -1,0 +1,81 @@
+div.internalVimiumHintMarker.vimiumReset {
+    background-color: #ff9bd0 !important;
+    color: #2c0929 !important;
+    box-shadow: inset 0 -2px 0 #dc62a3 !important;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.1s;
+}
+
+div.internalVimiumHintMarker.vimiumReset span {
+    color: #2c0929 !important;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+
+div.internalVimiumHintMarker.vimiumReset > .matchingCharacter {
+    color: #92256e !important;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+/* Taken from https://github.com/Katsute/GitHub-Red-Issues/blob/main/src/style.css */
+
+/* Copyright (C) 2021 Katsute <https://github.com/Katsute> */
+
+:root {
+    --rissue-pull-merged : var(--color-done-emphasis, #8957e5);
+    --rissue-issue-closed: var(--color-danger-fg, #F85149);
+    --rissue-white       : var(--color-fg-on-emphasis, #F0F6Fc);
+}
+
+/* issue icon */
+
+svg.octicon-issue-closed.closed,
+svg.octicon-issue-closed.color-fg-done {
+    color: var(--rissue-issue-closed) !important;
+}
+
+/* issue badge */
+
+span[title="Status: Closed"] {
+    background-color: var(--rissue-issue-closed) !important;
+}
+
+span[title="Status: Closed"] > svg.octicon-issue-closed {
+    color: var(--rissue-white) !important;
+}
+
+/* issue timeline */
+
+.TimelineItem-badge.color-bg-done-emphasis {
+    background-color: var(--rissue-issue-closed) !important;
+}
+
+.TimelineItem-badge.color-bg-done-emphasis > svg.octicon-issue-closed {
+    color: var(--rissue-white) !important;
+}
+
+/* pull timeline */
+
+div.pull-discussion-timeline .TimelineItem-badge.color-bg-done-emphasis {
+    background-color: var(--rissue-pull-merged) !important;
+}
+
+/* projects beta */
+
+svg[aria-label="Closed issue"] {
+    color: var(--rissue-issue-closed) !important;
+}
