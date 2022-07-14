@@ -52,6 +52,10 @@ let g:WhiplashConfigDir = "~/.vim/whiplash"
 
 autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
 
+" tmux title update
+autocmd BufEnter * call system("tmux rename-window \"vim (" . expand("%:t") . ")\"")
+autocmd VimLeave * call system("tmux rename-window fish")
+
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'OmniSharp/omnisharp-vim'
@@ -115,8 +119,9 @@ nnoremap <leader>p "+p
 " Feels more symmetrical on ortholinear layouts.
 noremap & ^
 imap <C-BS> <C-W>
-map <PageUp> <C-U>
-map <PageDown> <C-D>
+
+nmap <PageUp> <C-U>
+nmap <PageDown> <C-D>
 
 nnoremap <Space> <C-D>
 nnoremap <S-Space> <C-U>
