@@ -17,6 +17,8 @@ git commit -a -m "Update translations from crowdin";
 git push;
 hub pull-request;
 
+read  -n 1 -p "wait for merge"
+
 cd ~/Projects/osu-resources
 git btm
 
@@ -42,6 +44,17 @@ crowdin download -b client --skip-untranslated-files
 git add -A
 git commit -a -m "Update translations from crowdin";
 git push;
+
+# Pull translations in from osu-web
+cd ~/Projects/osu
+dotnet localisation from-php ../osu-web ../osu-resources/osu.Game.Resources/osu.Game.Resources.csproj
+cd ~/Projects/osu-resources
+git add -A
+git commit -a -m "Update osu-web sourced translations from crowdin";
+git push;
+
+
 hub pull-request;
+
 
 
