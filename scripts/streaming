@@ -1,0 +1,42 @@
+#! /usr/local/bin/fish
+
+echo "Purging command line history..."
+
+history delete --contains "SHARED"
+history delete --contains ".osu."
+history delete --contains "ping"
+history delete --contains "youtube."
+history delete --contains "google."
+history delete --contains "cheat"
+
+echo "Killing unnecessary apps..."
+
+pkill -x "datagrip"
+pkill -x "Superhuman"
+pkill -x "Safari"
+pkill -x "Things3"
+pkill -x "Transmit"
+pkill -x "Sequel Pro"
+pkill -x "Bear"
+pkill -x "1Password"
+pkill -x "Keychain Access"
+pkill -x "IINA"
+
+echo "Destroying browser history..."
+
+rm -rf ~/Library/Caches/Safari
+rm -rf ~/Library/Safari/History*
+touch ~/Library/Caches/Safari
+
+echo "Emptying trash..."
+
+rm -rf ~/.Trash/*
+
+echo "Starting streaming apps..."
+
+open /Applications/OBS.app
+sleep 1
+open /System/Applications/Music.app
+sleep 1
+open /Applications/Safari.app
+
