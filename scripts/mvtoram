@@ -1,0 +1,4 @@
+#! /bin/bash
+
+mv $1 /Volumes/ramdisk/
+ln -s /Volumes/ramdisk/$1 $1
