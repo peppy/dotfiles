@@ -7,7 +7,7 @@ set ideajoin
 set multiple-cursors
 set highlightedyank
 
-set clipboard+=unnamed
+" set clipboard+=unnamed
 
 " avoid accidental pagination while in insert mode (keymap woes).
 imap <PageUp> <Space>
@@ -62,9 +62,10 @@ map <C-l> <Action>(NextTab)
 nmap <Space> <C-D>
 nmap <S-Space> <C-U>
 
-nmap <Enter> <Action>(RiderDebuggerApplyEncChagnes)
+# nmap <Enter> <Action>(RiderDebuggerApplyEncChagnes)
 
 map <Leader>wt <Action>(ActivateUnitTestsToolWindow)
+map <Leader>wT <Action>(ActivateTODOToolWindow)
 map <Leader>wd <Action>(ActivateDebugToolWindow)
 map <Leader>ws <Action>(ActivateProjectToolWindow)
 map <Leader>we <Action>(Rider.ProblemsView.ErrorsInSolution)
