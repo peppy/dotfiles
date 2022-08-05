@@ -1,3 +1,7 @@
+fish_add_path $HOME/scripts
+fish_add_path /usr/local/sbin
+fish_add_path /opt/homebrew/bin
+
 if type -q starship
 	eval (starship init fish)
 end
@@ -5,9 +9,6 @@ end
 set fish_greeting
 
 fish_vi_key_bindings
-
-fish_add_path $HOME/scripts
-fish_add_path /usr/local/sbin
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
