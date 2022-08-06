@@ -9,7 +9,6 @@ yabai -m config window_border                off
 yabai -m config window_shadow                on
 yabai -m config active_window_border_color   0xff008bff
 yabai -m config normal_window_border_color   0x01000000
-yabai -m config window_border_width          8
 yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        1.0
 yabai -m config split_ratio                  0.50
@@ -22,27 +21,32 @@ yabai -m config bottom_padding               8
 yabai -m config left_padding                 8
 yabai -m config right_padding                8
 yabai -m config window_gap                   8
-yabai -m config external_bar main:28:60
+yabai -m config external_bar main:0:60
 
 # space 1: terminals
-yabai -m rule --add app="iTerm2" space=^1 display=1
-yabai -m rule --add app="kitty" space=^1 display=1
+yabai -m rule --add app="iTerm2" space=^1
+yabai -m rule --add app="kitty" space=^1
 
 # space 2: rider development
 yabai -m rule --add app="JetBrains Rider.*" space=^2
 yabai -m rule --add app="JetBrains Rider.*" title="Preferences" space=^2 manage=off
+yabai -m rule --add app="PhpStorm.*" space=^2
+yabai -m rule --add app="PhpStorm.*" title="Preferences" space=^2 manage=off
 
-# space 3: web and email
+# space 3: web
 yabai -m rule --add app="Safari" space=^3
-yabai -m rule --add app="Superhuman" space=^3
 
-# space 4: floating
+# space 4: VMs
 yabai -m space 4 --layout stack
 yabai -m space 4 --padding abs:8:8:8:450
 yabai -m rule --add app="Parallels Desktop" title="Control Center" space=^4 manage=off
 yabai -m rule --add app="Parallels Desktop" space=^4
-yabai -m rule --add app="Adobe Photoshop" space=^4
-yabai -m rule --add app="DataGrip" space=^4
+
+# space 5: stack
+yabai -m space 5 --layout stack
+yabai -m rule --add app="Superhuman" space=^5
+yabai -m rule --add app="DataGrip" space=^5
+yabai -m rule --add app="Adobe Photoshop" space=^5
 
 # display 2: off-stream and out of the way
 yabai -m rule --add app="Discord" display=2
@@ -52,8 +56,9 @@ yabai -m rule --add app="OBS" display=2
 yabai -m rule --add app="Podcasts" display=2
 
 # things which create floating children
-yabai -m rule --add app="iStat Menus.*" manage=off mouse_follows_focus=off
-yabai -m rule --add title="JetBrains Toolbox" manage=off
+yabai -m rule --add title="JetBrains Toolbox" manage=off mouse_follows_focus=off
 yabai -m rule --add app="System Preferences" manage=off
-yabai -m rule --add app="choose" manage=off
+yabai -m rule --add app="Stats" manage=off
+yabai -m rule --add app="choose" manage=off mouse_follows_focus=off
+yabai -m rule --add app="CleanShot X" manage=off mouse_follows_focus=off
 
