@@ -46,7 +46,7 @@ yabai -m rule --add app="Parallels Desktop" space=^4
 yabai -m space 5 --layout stack
 yabai -m rule --add app="Superhuman" space=^5
 yabai -m rule --add app="DataGrip" space=^5
-yabai -m rule --add app="Adobe Photoshop" space=^5
+yabai -m rule --add app="Pixelmator*" space=^5
 
 # display 2: off-stream and out of the way
 yabai -m rule --add app="Discord" display=2
