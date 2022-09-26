@@ -16,11 +16,6 @@ div.internalVimiumHintMarker.vimiumReset {
 	animation-duration: 0.1s;
 }
 
-.notification-indicator
-{
-    display: none;
-}
-
 div.internalVimiumHintMarker.vimiumReset span {
     color: #2c0929 !important;
     font-family: Helvetica, Arial, sans-serif;

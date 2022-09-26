@@ -1,0 +1,91 @@
+
+.blacklist [
+    "parsec"
+    "jump desktop"
+]
+
+# general window management
+alt - e : yabai -m window --toggle split
+alt - r : yabai -m space --rotate 90
+alt - t : yabai -m window --toggle float
+
+alt - d : yabai -m window --toggle zoom-parent
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+alt - x : yabai -m window --close
+
+# focus window
+alt - h : yabai -m window --focus west || yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east || yabai -m window --focus stack.next || yabai -m window --focus stack.first
+
+# swap window
+alt + shift - h : yabai -m window --swap west
+alt + shift - j : yabai -m window --swap south
+alt + shift - k : yabai -m window --swap north
+alt + shift - l : yabai -m window --swap east
+
+# move window
+alt + ctrl - h : yabai -m window --warp west
+alt + ctrl - j : yabai -m window --warp south
+alt + ctrl - k : yabai -m window --warp north
+alt + ctrl - l : yabai -m window --warp east
+
+# send window to monitor and follow focus
+alt - 1 : yabai -m window --display 1
+alt - 2 : yabai -m window --display 2
+alt - 3 : yabai -m window --display 3
+
+# general application and control hotkeys
+
+meh - tab : yabai -m space --focus recent
+
+meh - w : yabai -m space --focus 3;                      # yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "Safari") | .id');
+meh - r : yabai -m space --focus 2;                      # yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  | contains("Rider")) | .id');
+# open spotlight from an iOS remote session
+meh - t : skhd -k "cmd - space"
+
+# meh - u : ~/go/bin/obs-cli scene switch "main"
+# meh - i : ~/go/bin/obs-cli scene switch "brb"
+# meh - o : ~/go/bin/obs-cli scene switch "shit hit fan"
+# kill stream with meh-'
+# meh - 0x27 : ~/go/bin/obs-cli stream stop; pkill obs
+
+meh - backspace : pkill OBS; pmset displaysleepnow
+
+meh - a : yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "Audio Hijack") | .id');
+meh - s : yabai -m space --focus 1;                     # yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "iTerm2") | .id');
+meh - d : yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "Discord") | .id');
+# open common folders
+meh - f : cd ~; open (printf "Downloads\nProjects/osu\nProjects/osu-resources\nGames/osu-development\nGames/osu-development/client.realm\n" | choose -um)
+meh - g : ~/scripts/github-safari-action
+meh - h : yabai -m window --focus west || yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+meh - j : yabai -m window --focus south
+meh - k : yabai -m window --focus north
+meh - l : yabai -m window --focus east || yabai -m window --focus stack.next || yabai -m window --focus stack.first
+
+meh - v : yabai -m space --focus 4;
+meh - m : yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "Music") | .id');
+meh - e : yabai -m space --focus 5; yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "Superhuman") | .id');
+
+#meh - 0x2C : warpd --hint2
+
+# Prepare for iPad remoting (alt-,)
+alt - 0x2B : pkill obs; \
+    pkill Music; \
+    pkill KeyCastr; \
+    displayplacer "id:0000F0F0-0000-0F0B-2C54-FD9500000000 res:1728x1296 hz:60 color_depth:4 scaling:on origin:(0,0) degree:0" "id:EF38BA93-EB3E-4962-EFEE-4959024A493C res:2560x1440 hz:144 color_depth:8 scaling:off origin:(0,-1440) degree:0" "id:F8DD9C2E-C468-7692-DA3C-BBF2E2D8324F res:1080x2560 hz:60 color_depth:8 scaling:off origin:(2560,-2065) degree:90"; \
+    sleep 1; \
+    yabai -m config external_bar main:0:0; \
+    skhd -k "escape"; \
+    skhd -k "cmd+alt-k";
+
+# Exit iPad remoting (alt-.)
+alt - 0x2F : displayplacer "id:EF38BA93-EB3E-4962-EFEE-4959024A493C res:2560x1440 hz:144 color_depth:8 scaling:off origin:(0,0) degree:0" "id:F8DD9C2E-C468-7692-DA3C-BBF2E2D8324F res:1080x2560 hz:60 color_depth:8 scaling:off origin:(2560,-625) degree:90" "id:0000F0F0-0000-0F0B-2C54-FD9500000000 res:1728x1296 hz:60 color_depth:4 scaling:on origin:(0,1440) degree:0"; \
+    sleep 1; \
+    yabai -m config external_bar main:0:60; \
+    skhd -k "escape"; \
+    skhd -k "cmd+alt-k"; \
+    open /Applications/KeyCastr.app; \
+    open /System/Applications/Music.app;
