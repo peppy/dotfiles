@@ -1,0 +1,1 @@
+{"title":"RCMD to MEH","rules":[{"description":"RCMD to MEH","manipulators":[{"from":{"key_code":"right_gui"},"to":[{"key_code":"left_shift","modifiers":["left_control","left_option"]}],"type":"basic"}]}]}

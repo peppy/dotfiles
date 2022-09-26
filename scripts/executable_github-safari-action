@@ -1,6 +1,6 @@
 #!/bin/bash
 
-url=`safari-ctl`
+url=`/opt/homebrew/bin/safari-ctl`
 repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/]*\).*,\1,g'`
 
 cd ~/Projects/$repo/
@@ -10,27 +10,28 @@ choice=`printf "checkout\napprove\napprove & automerge\napprove & force merge\nf
 case "$choice" in
     0)
         # checkout PR
-        /usr/local/bin/gh pr checkout $url
+        gh pr edit $url --add-reviewer peppy
+        gh pr checkout $url
         ;;
     1)
         # just approve
-        /usr/local/bin/gh pr review $url -a
+        gh pr review $url -a
         ;;
     2)
         # approve with automerge
-        /usr/local/bin/gh pr review $url -a
-        /usr/local/bin/gh pr merge $url --auto -m
+        gh pr review $url -a
+        gh pr merge $url --auto -m
         ;;
     3)
         # approve with forced merge
-        /usr/local/bin/gh pr review $url -a
-        /usr/local/bin/gh pr merge $url --merge --disable-auto
-        /usr/local/bin/gh pr merge $url --merge --admin
+        gh pr review $url -a
+        gh pr merge $url --merge --disable-auto
+        gh pr merge $url --merge --admin
         ;;
     4)
         # force merge
-        /usr/local/bin/gh pr merge $url --merge --disable-auto
-        /usr/local/bin/gh pr merge $url --merge --admin
+        gh pr merge $url --merge --disable-auto
+        gh pr merge $url --merge --admin
         ;;
     8)
         eval "$(gh pr view $url --json "title,url" | jq -r '@sh "title=\(.title)", @sh "url=\(.url)"')"

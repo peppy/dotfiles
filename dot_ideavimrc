@@ -1,0 +1,131 @@
+source ~/.vimrc
+
+set mouse=a
+set commentary
+set surround
+set ideajoin
+set multiple-cursors
+set highlightedyank
+
+" set clipboard+=unnamed
+
+" avoid accidental pagination while in insert mode (keymap woes).
+imap <PageUp> <Space>
+imap <PageDown> <Space>
+
+map <Leader>\   <Action>(Refactorings.QuickListPopupAction)
+map <Leader>e   <Action>(ReSharperGotoNextErrorInSolution)
+map <Leader>r   <Action>(ChooseRunConfiguration)
+map <Leader>R   <Action>(RenameElement)
+map <Leader>t   <Action>(SearchEverywhere)
+map <Leader>TC  <Action>(RiderUnitTestRunContextAction)
+map <Leader>TD  <Action>(RiderUnitTestDebugContextAction)
+map <Leader>TS  <Action>(RiderUnitTestNewSessionAction)
+map <Leader>TF  <Action>(RiderUnitTestSessionRerunFailedTestsAction)
+map <Leader>TU  <Action>(RiderUnitTestRunContextUntilFailAction)
+map <Leader>TT  <Action>(RiderUnitTestRunCurrentSessionAction)
+map <Leader>TR  <Action>(RiderUnitTestRunCurrentSessionAction)
+map <Leader>TA  <Action>(Rider.UnitTesting.RunSolution)
+map <Leader>u   <Action>(GotoSuperMethod)
+map <Leader>i   <Action>(GotoImplementation)
+map <Leader>o   <Action>(ManageRecentProjects)
+map <Leader>p   <Action>(GotoAction)
+map <Leader>P   <Action>(TogglePresentationMode)
+
+map <Leader>a   <Action>(XDebugger.AttachToProcess)
+map <Leader>A   <Action>(Annotate)
+map <Leader>s   <Action>(FileStructurePopup)
+map <Leader>S   <Action>(ShowSolutionPropertiesAction)
+map <Leader>d   <Action>(ChooseDebugConfiguration)
+map <Leader>F   <Action>(FindInPath)
+map <Leader>G   <Action>(Github.Open.In.Browser)
+map <Leader>'   <Action>(Rerun)
+
+map <Leader>b   <Action>(ToggleLineBreakpoint)
+map <Leader>B   <Action>(ViewBreakpoints)
+map <Leader>c   <Action>(Git.Commit.And.Push.Executor)
+map <Leader>n   <Action>(RiderNuGetRestoreForceAction)
+map <Leader>l   <Action>(RestoreDefaultLayout)
+nmap ,          <Action>(ShowIntentionActions)
+
+nmap <Tab>      <Action>(ShowErrorDescription)
+" nmap <Esc>      <Action>(JumpToLastWindow)
+
+" TODO: find a key for this <Action>(QuickJavaDoc)
+
+nmap ;    <Action>(AceAction)
+
+map <Leader>,   :source ~/.ideavimrc<CR>
+map <C-h> <Action>(PreviousTab)
+map <C-l> <Action>(NextTab)
+
+map <C-j> <Action>(ResizeToolWindowDown)
+map <C-k> <Action>(ResizeToolWindowUp)
+
+nmap <Space> <C-D>
+nmap <S-Space> <C-U>
+
+# nmap <Enter> <Action>(RiderDebuggerApplyEncChagnes)
+
+map <Leader>wt <Action>(ActivateUnitTestsToolWindow)
+map <Leader>wT <Action>(ActivateTODOToolWindow)
+map <Leader>wd <Action>(ActivateDebugToolWindow)
+map <Leader>ws <Action>(ActivateProjectToolWindow)
+map <Leader>we <Action>(Rider.ProblemsView.ErrorsInSolution)
+map <Leader>wi <Action>(NavigateToImmediateWindow)
+map <Leader>wr <Action>(ActivateRunToolWindow)
+map <Leader>wf <Action>(ActivateStructureToolWindow)
+map <Leader>wp <Action>(ActivatedotTraceProfilerToolWindow)
+map <Leader>wc <Action>(ShowSolutionPropertiesAction)
+map <Leader>wn <Action>(ActivateNuGetToolWindow)
+map <Leader>ww <Action>(HideAllWindows)
+
+" extract actions
+map <Leader>xi <Action>(ExtractInterface)
+map <Leader>xs <Action>(ExtractSuperclass)
+map <Leader>xc <Action>(ExtractClass)
+map <Leader>xm <Action>(ExtractMethod)
+
+map <Leader>cv <Action>(IntroduceVariable)
+map <Leader>ci <Action>(Inline)
+map <Leader>cf <Action>(IntroduceField)
+map <Leader>cp <Action>(IntroduceParameter)
+map <Leader>cc <Action>(IntroduceConstant)
+
+nmap gr <Action>(GotoSuperMethod)
+nmap gb <Action>(GotoSuperMethod)
+
+" comment a line, similar to tpope/vim-commentary
+nmap gcc <Action>(CommentByLineComment)
+vmap gcc <Action>(CommentByLineComment)
+
+" fix actions
+nmap <Leader>ff <Action>(ReformatCode)
+vmap <Leader>ff <Esc>gvhh:<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr><Action>(ReformatCode<C)
+nmap <Leader>fi <Action>(OptimizeImports)
+nmap <Leader>fa <Action>(ShowIntentionActions<CR><)
+nmap <Leader>fr <Action>(ChangeTargetFramework)
+
+" always use jetbrains jumplist
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
+
+map gt   <Action>(SearchEverywhere)
+
+" https://youtrack.jetbrains.com/issue/VIM-2178/multiple-cursors-defines-incorrect-keys
+" Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+nmap <C-x> <Plug>SkipOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+nmap <C-p> <Plug>RemoveOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+
+" Note that the default <A-n> and g<A-n> shortcuts don't work on Mac due to dead keys.
+" <A-n> is used to enter accented text e.g. ñ
+nmap <S-C-n> <Plug>AllWholeOccurrences
+xmap <S-C-n> <Plug>AllWholeOccurrences
+nmap g<S-C-n> <Plug>AllOccurrences
+xmap g<S-C-n> <Plug>AllOccurrences
