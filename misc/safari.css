@@ -1,3 +1,7 @@
+.ytd-watch-flexy#secondary {
+    display: none
+}
+
 div.internalVimiumHintMarker.vimiumReset {
     background-color: #ff9bd0 !important;
     color: #2c0929 !important;
