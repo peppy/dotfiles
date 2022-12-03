@@ -1,6 +1,7 @@
 .remote-sync.json
 .vimsession
 projectSettingsUpdater.xml
+riderMarkupCache.xml
 *.nrproj
 *.crproj
 */**/bin
