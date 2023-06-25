@@ -59,6 +59,9 @@ map <Leader>,   :source ~/.ideavimrc<CR>
 map <C-h> <Action>(PreviousTab)
 map <C-l> <Action>(NextTab)
 
+map <C-j> <Action>(ResizeToolWindowDown)
+map <C-k> <Action>(ResizeToolWindowUp)
+
 nmap <Space> <C-D>
 nmap <S-Space> <C-U>
 
