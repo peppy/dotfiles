@@ -26,6 +26,10 @@ div.internalVimiumHintMarker.vimiumReset > .matchingCharacter {
     color: #92256e !important;
 }
 
+.blob-code-inner, .file-info {
+    font-family: 'Jetbrains Mono', monospace !important;
+}
+
 @keyframes fadeInOpacity {
 	0% {
 		opacity: 0;
