@@ -43,7 +43,7 @@ let g:omnicomplete_fetch_full_documentation = 1
 
 " Add Vundle to runtime path
 set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=/usr/local/opt/fzf
+set rtp+=/opt/homebrew/opt/fzf
 
 let g:gruvbox_invert_selection='0'
 
