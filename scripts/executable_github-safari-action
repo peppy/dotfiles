@@ -1,7 +1,7 @@
 #!/bin/bash
 
-url=`/opt/homebrew/bin/safari-ctl`
-repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/]*\).*,\1,g'`
+url=`safari-ctl`
+repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
 
 cd ~/Projects/$repo/
 
@@ -34,6 +34,16 @@ case "$choice" in
         gh pr merge $url --merge --admin
         ;;
     8)
-        eval "$(gh pr view $url --json "title,url" | jq -r '@sh "title=\(.title)", @sh "url=\(.url)"')"
-        echo "- [ ] $title ($url)" | pbcopy
+
+        if [[ "$url" == *"/issues/"* ]]; then
+            eval "$(gh issue view $url --json "title,url" | jq -r '@sh "title=\(.title)", @sh "url=\(.url)"')"
+            echo "- [~] Investigate: $title ($url)" | pbcopy
+        else
+            eval "$(gh pr view $url --json "title,url,author" | jq -r '@sh "title=\(.title)", @sh "url=\(.url)", @sh "author=\(.author.login)"')"
+            if [[ "$author" == *"peppy"* ]]; then
+                echo "- [x] $title ($url)" | pbcopy
+            else
+                echo "- [~] Review: $title ($url)" | pbcopy
+            fi
+        fi
 esac
