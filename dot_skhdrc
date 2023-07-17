@@ -83,3 +83,6 @@ alt - 0x2F : displayplacer "id:EF38BA93-EB3E-4962-EFEE-4959024A493C res:2560x144
     skhd -k "cmd+alt-k"; \
     open /Applications/KeyCastr.app; \
     open /System/Applications/Music.app;
+
+# block macOS opening mail client
+cmd - i : ls
