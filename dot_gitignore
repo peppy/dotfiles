@@ -1,5 +1,6 @@
 .remote-sync.json
 .vimsession
+riderMarkupCache.xml
 projectSettingsUpdater.xml
 riderMarkupCache.xml
 *.nrproj
@@ -9,9 +10,20 @@ riderMarkupCache.xml
 .DS_Store
 .keep
 *.swp
+*.user
 .bundle
 vendor/bundle
 misc.xml
 dataSources.xml
 .phpdoc
 
+# User-specific stuff
+
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Should usually be committed, but I use rider with non-rider projects..
+.idea/**/indexLayout.xml
