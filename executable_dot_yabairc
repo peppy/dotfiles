@@ -13,7 +13,6 @@ yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.94 
 yabai -m config split_ratio                  0.50
 yabai -m config auto_balance                 off
-yabai -m config window_animation_duration    0.0
 
 # general space settings
 yabai -m config layout                       bsp
@@ -22,7 +21,7 @@ yabai -m config bottom_padding               8
 yabai -m config left_padding                 8
 yabai -m config right_padding                8
 yabai -m config window_gap                   8
-yabai -m config external_bar main:0:0
+yabai -m config external_bar main:0:60
 
 # space 1: terminals
 yabai -m rule --add app="iTerm2" space=^1
@@ -51,11 +50,11 @@ yabai -m rule --add app="DataGrip" space=^5
 yabai -m rule --add app="Pixelmator*" space=^5
 
 # display 2: off-stream and out of the way
-yabai -m rule --add app="Discord" space=^4
-yabai -m rule --add app="Discord PTB" space=^4
-yabai -m rule --add app="Music" space=^4
-yabai -m rule --add app="OBS" space=^4
-yabai -m rule --add app="Podcasts" space=^4
+yabai -m rule --add app="Discord" display=2
+yabai -m rule --add app="Discord PTB" display=2
+yabai -m rule --add app="Music" display=2
+yabai -m rule --add app="OBS" display=2
+yabai -m rule --add app="Podcasts" display=2
 
 # things which create floating children
 yabai -m rule --add title="JetBrains Toolbox" manage=off mouse_follows_focus=off
