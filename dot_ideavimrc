@@ -39,7 +39,7 @@ map <Leader>S   <Action>(ShowSolutionPropertiesAction)
 map <Leader>d   <Action>(ChooseDebugConfiguration)
 map <Leader>F   <Action>(FindInPath)
 map <Leader>G   <Action>(Github.Open.In.Browser)
-map <Leader>'   <Action>(Rerun)
+# map <Leader>'   <Action>(Rerun)
 
 map <Leader>b   <Action>(ToggleLineBreakpoint)
 map <Leader>B   <Action>(ViewBreakpoints)
@@ -94,6 +94,7 @@ map <Leader>cc <Action>(IntroduceConstant)
 
 nmap gr <Action>(GotoSuperMethod)
 nmap gb <Action>(GotoSuperMethod)
+nmap gu <Action>(ShowUsages)
 
 " comment a line, similar to tpope/vim-commentary
 nmap gcc <Action>(CommentByLineComment)
@@ -111,6 +112,7 @@ nmap <C-o> <Action>(Back)
 nmap <C-i> <Action>(Forward)
 
 map gt   <Action>(SearchEverywhere)
+map gd   <Action>(GotoDeclaration)
 
 " https://youtrack.jetbrains.com/issue/VIM-2178/multiple-cursors-defines-incorrect-keys
 " Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
@@ -118,8 +120,8 @@ nmap <C-n> <Plug>NextWholeOccurrence
 xmap <C-n> <Plug>NextWholeOccurrence
 nmap g<C-n> <Plug>NextOccurrence
 xmap g<C-n> <Plug>NextOccurrence
-nmap <C-x> <Plug>SkipOccurrence
-xmap <C-x> <Plug>SkipOccurrence
+" nmap <C-x> <Plug>SkipOccurrence
+" xmap <C-x> <Plug>SkipOccurrence
 nmap <C-p> <Plug>RemoveOccurrence
 xmap <C-p> <Plug>RemoveOccurrence
 
