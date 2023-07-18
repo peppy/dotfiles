@@ -8,6 +8,7 @@ history delete --contains "ping"
 history delete --contains "youtube."
 history delete --contains "google."
 history delete --contains "cheat"
+history delete --contains "history delete"
 
 echo "Killing unnecessary apps..."
 
