@@ -1,0 +1,22 @@
+#!/bin/bash
+
+gh api graphql --paginate -f query='
+{
+  search(query: "type:pr is:pr author:peppy archived:false created:2022-04-20..2022-05-18", type: ISSUE, first: 100) {
+    issueCount
+    pageInfo {
+      endCursor
+      startCursor
+    }
+    edges {
+      node {
+        ... on PullRequest {
+          repository {name},
+          url,
+          title,
+        }
+      }
+    }
+  }
+}
+'
