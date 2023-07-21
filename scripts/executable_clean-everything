@@ -1,0 +1,6 @@
+#!/bin/bash
+
+dotnet nuget locals all --clear;
+
+find ~/Projects/osu \( -name "obj" -or -name "bin" \) -exec rm -r {} \;
+find ~/Projects/osu-framework \( -name "obj" -or -name "bin" \) -exec rm -r {} \;
