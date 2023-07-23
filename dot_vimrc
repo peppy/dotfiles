@@ -54,7 +54,7 @@ autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
 
 " tmux title update
 autocmd BufEnter * call system("tmux rename-window \"vim (" . expand("%:t") . ")\"")
-autocmd VimLeave * call system("tmux rename-window fish")
+autocmd VimLeave * call system("tmux set-window-option automatic-rename on")
 
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
