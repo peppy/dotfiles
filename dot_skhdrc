@@ -58,7 +58,6 @@ meh - a : yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.
 meh - s : yabai -m space --focus 1;                     # yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "iTerm2") | .id');
 meh - d : yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "Discord") | .id');
 # open common folders
-meh - f : cd ~; open (printf "Downloads\nProjects/osu\nProjects/osu-resources\nGames/osu-development\nGames/osu-development/client.realm\n" | choose -um)
 meh - g : ~/scripts/github-safari-action
 meh - h : yabai -m window --focus west || yabai -m window --focus stack.prev || yabai -m window --focus stack.last
 meh - j : yabai -m window --focus south
