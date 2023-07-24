@@ -75,4 +75,5 @@
 [credential]
 	helper = osxkeychain
 [pull]
+	rebase = true
 	ff = only
