@@ -1,10 +1,10 @@
-#!/usr/local/bin/fish
+#!/opt/homebrew/bin/fish
 
 set mountPoint (hdiutil attach -nomount ram://16384000 | tr -d '[:space:]');
 sudo diskutil partitionDisk $mountPoint 1 GPTFormat APFS 'ramdisk' '100%';
 
 mkdir /Volumes/ramdisk/of-test-headless
-cd /private/var/folders/qt/mf5nyxrn07s0_mwpb_t8bl5h0000gn/T/
+cd /var/folders/6g/_6_8h1bd0x3bf1th19xyw3480000gn/T/
 rm -r of-test-headless
 ln -s /Volumes/ramdisk/of-test-headless of-test-headless
 
