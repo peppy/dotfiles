@@ -43,6 +43,8 @@ meh - tab : yabai -m space --focus recent
 
 meh - w : yabai -m space --focus 3;                      # yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "Safari") | .id');
 meh - r : yabai -m space --focus 2;                      # yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  | contains("Rider")) | .id');
+# open most recent downloaded file in rider
+cmd + alt - r : rider (ls -tp ~/Downloads/*.log | grep -v /\$ | head -1)
 # open spotlight from an iOS remote session
 meh - t : skhd -k "cmd - space"
 
