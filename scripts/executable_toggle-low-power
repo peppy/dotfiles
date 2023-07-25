@@ -1,0 +1,13 @@
+#!/bin/bash
+
+current=`pmset -g | grep "lowpowermode" | tail -c 2`
+
+case "$current" in
+    0)
+        sudo pmset -a lowpowermode 1
+        ;;
+    1)
+        sudo pmset -a lowpowermode 0
+        ;;
+esac
+
