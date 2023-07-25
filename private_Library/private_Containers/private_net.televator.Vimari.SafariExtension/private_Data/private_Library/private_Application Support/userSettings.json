@@ -1,0 +1,32 @@
+ {
+  "excludedUrls": "https://monkeytype.com, https://docs.google.com",
+  "linkHintCharacters": "asdfjklweio",
+  "detectByCursorStyle": false,
+  "scrollSize": 250,
+  "openTabUrl": "https://google.com",
+  "modifier": "",
+  "smoothScroll": true,
+  "scrollDuration": 25,
+  "transparentBindings": true,
+  "bindings": {
+      "hintToggle": [ ";", "f" ],
+      "newTabHintToggle": "shift+;",
+      "scrollUp": [ "k","up"],
+      "scrollDown": [ "j", "down" ],
+      "scrollLeft": "",
+      "scrollRight": "",
+      "scrollUpHalfPage": [ "ctrl+u" ],
+      "scrollDownHalfPage": [ "ctrl+d" ],
+      "goToPageTop": "g g",
+      "goToPageBottom": "shift+g",
+      "goToFirstInput": "g i",
+      "goBack": "ctrl+o",
+      "goForward": "ctrl+i",
+      "reload": "r",
+      "tabForward": [ "ctrl+l"],
+      "tabBack": [ "ctrl+h" ],
+      "closeTab": "x",
+      "openTab": "t",
+      "duplicateTab": "y t"
+  }
+}
