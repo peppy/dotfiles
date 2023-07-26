@@ -12,6 +12,7 @@ brew "gh"
 brew "git"
 brew "htop"
 brew "hub"
+brew "imagemagick"
 brew "jq"
 brew "k9s"
 brew "kubernetes-cli"
@@ -20,22 +21,26 @@ brew "mas"
 brew "mosh"
 brew "mycli"
 brew "neovim"
+brew "node"
 brew "redis"
 brew "ripgrep"
 brew "rtorrent"
 brew "starship"
 brew "tmux"
+brew "watch"
 brew "yt-dlp"
 brew "zsh"
 brew "koekeishiya/formulae/skhd"
 brew "koekeishiya/formulae/yabai"
 cask "1password"
 cask "audio-hijack"
+cask "betterdisplay"
 cask "cleanshot"
 cask "discord"
 cask "docker"
 cask "dotnet-sdk"
 cask "dotnet-sdk6-0-400"
+cask "fission"
 cask "font-iosevka"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
@@ -62,6 +67,7 @@ cask "viscosity"
 cask "xld"
 cask "zerotier-one"
 mas "1Password for Safari", id: 1569813296
+mas "BBEdit", id: 404009241
 mas "Bear", id: 1091189122
 mas "Day Progress", id: 6450280202
 mas "Endel", id: 1346247457
@@ -74,3 +80,4 @@ mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Pixelmator Pro", id: 1289583905
 mas "Things", id: 904280696
+mas "Xcode", id: 497799835
