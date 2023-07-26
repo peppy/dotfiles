@@ -59,7 +59,7 @@ yabai -m rule --add app="Podcasts" space=^4
 
 # things which create floating children
 yabai -m rule --add title="JetBrains Toolbox" manage=off mouse_follows_focus=off
-yabai -m rule --add app="System Preferences" manage=off
+yabai -m rule --add app="System Settings" manage=off
 yabai -m rule --add app="Stats" manage=off mouse_follows_focus=off
 yabai -m rule --add app="Things" grid=4:3:1:1:1:2 manage=off mouse_follows_focus=on sticky=on
 yabai -m rule --add app="choose" manage=off mouse_follows_focus=off
