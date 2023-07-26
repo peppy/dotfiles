@@ -1,9 +1,3 @@
-
-.blacklist [
-    "parsec"
-    "jump desktop"
-]
-
 # general window management
 alt - e : yabai -m window --toggle split
 alt - r : yabai -m space --rotate 90
