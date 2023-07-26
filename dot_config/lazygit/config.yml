@@ -132,7 +132,7 @@ customCommands:
       context: 'localBranches'
       subprocess: true
     - key: 'O'
-      command: "hub pull-request"
+      command: "gh pr create"
       context: 'localBranches'
       subprocess: true
     - key: 'L'
