@@ -46,7 +46,6 @@ meh - r : yabai -m space --focus 2;                      # yabai -m window --foc
 # open most recent downloaded file in rider
 cmd + alt - r : rider (ls -tp ~/Downloads/*.log | grep -v /\$ | head -1)
 # open spotlight from an iOS remote session
-meh - t : skhd -k "cmd - space"
 
 # meh - u : ~/go/bin/obs-cli scene switch "main"
 # meh - i : ~/go/bin/obs-cli scene switch "brb"
