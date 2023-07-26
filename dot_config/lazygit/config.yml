@@ -150,14 +150,17 @@ customCommands:
     - key: 'G'
       command: "gh pr view --web"
       context: 'localBranches'
-    - key: 'H'
+    - key: 'D'
       prompts:
-        - type: 'input'
-          title: 'Pull request URL'
-          initialValue: ''
-      command: "hub checkout {{index .PromptResponses 0}}"
+        - type: 'menu'
+          title: 'Clipboard diff'
+          options:
+            - name: 'apply'
+              value: 'pbpaste | git apply -'
+            - name: 'copy'
+              value: 'git diff | pbcopy'
+      command: "{{index .PromptResponses 0}}"
       context: 'localBranches'
-      loadingText: 'checking out'
     - key: 'U'
       prompts:
         - type: 'menu'
