@@ -77,3 +77,5 @@
 [pull]
 	rebase = true
 	ff = only
+[rebase]
+	autoStash = true
