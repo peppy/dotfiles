@@ -27,6 +27,9 @@ export DOCKER_SCAN_SUGGEST="false"
 export FZF_TMUX=1
 export FZF_TMUX_OPTS="-p 80%"
 
+# see https://github.com/dotnet/runtime/issues/68018
+# export DOTNET_ReadyToRun=0
+
 if status is-interactive
     cd ~/Projects
 end
