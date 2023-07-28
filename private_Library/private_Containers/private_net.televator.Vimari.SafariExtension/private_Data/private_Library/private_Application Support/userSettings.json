@@ -1,5 +1,5 @@
  {
-  "excludedUrls": "https://monkeytype.com, https://docs.google.com",
+  "excludedUrls": "monkeytype.com, docs.google.com, github.com/notifications",
   "linkHintCharacters": "asdfjklweio",
   "detectByCursorStyle": false,
   "scrollSize": 250,
@@ -11,8 +11,8 @@
   "bindings": {
       "hintToggle": [ ";", "f" ],
       "newTabHintToggle": "shift+;",
-      "scrollUp": [ "k","up"],
-      "scrollDown": [ "j", "down" ],
+      "scrollUp": [ "k" ],
+      "scrollDown": [ "j" ],
       "scrollLeft": "",
       "scrollRight": "",
       "scrollUpHalfPage": [ "ctrl+u" ],
