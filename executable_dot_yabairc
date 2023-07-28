@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # global settings
-yabai -m config mouse_follows_focus          off
+yabai -m config mouse_follows_focus          on
 yabai -m config window_placement             second_child
 yabai -m config window_topmost               off
 yabai -m config window_opacity               on
@@ -39,15 +39,15 @@ yabai -m rule --add app="Safari" space=^3
 
 # space 4: VMs
 yabai -m space 4 --layout stack
-yabai -m space 4 --padding abs:8:8:8:450
 yabai -m rule --add app="Jump Desktop" space=^4
 yabai -m rule --add app="Jump Desktop" title="Jump Desktop" space=^4 manage=off
+yabai -m rule --add app="Parallels Desktop" title="Control Center" space=^4 manage=off
+yabai -m rule --add app="Parallels Desktop" space=^4
 
 # space 5: stack
 yabai -m space 5 --layout stack
 yabai -m rule --add app="Superhuman" space=^5
 yabai -m rule --add app="DataGrip" space=^5
-yabai -m rule --add app="Adobe Photoshop" space=^5
 yabai -m rule --add app="Pixelmator*" space=^5
 
 # display 2: off-stream and out of the way
