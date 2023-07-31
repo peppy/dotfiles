@@ -6,6 +6,7 @@ brew "chezmoi"
 brew "choose-gui"
 brew "composer"
 brew "ffmpeg"
+brew "findutils"
 brew "fish"
 brew "fzf"
 brew "gh"
@@ -61,6 +62,7 @@ cask "raycast"
 cask "stats"
 cask "superhuman"
 cask "tev"
+cask "the-unarchiver"
 cask "transmit"
 cask "ubersicht"
 cask "viscosity"
@@ -80,4 +82,5 @@ mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Pixelmator Pro", id: 1289583905
 mas "Things", id: 904280696
+mas "Userscripts-Mac-App", id: 1463298887
 mas "Xcode", id: 497799835
