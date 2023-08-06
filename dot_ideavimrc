@@ -39,7 +39,7 @@ map <Leader>S   <Action>(ShowSolutionPropertiesAction)
 map <Leader>d   <Action>(ChooseDebugConfiguration)
 map <Leader>F   <Action>(FindInPath)
 map <Leader>G   <Action>(Github.Open.In.Browser)
-# map <Leader>'   <Action>(Rerun)
+map <C-'>       <Action>(Run)
 
 map <Leader>b   <Action>(ToggleLineBreakpoint)
 map <Leader>B   <Action>(ViewBreakpoints)
