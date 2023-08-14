@@ -15,7 +15,7 @@ crowdin download -b master --skip-untranslated-strings;
 git add -A
 git commit -a -m "Update translations from crowdin";
 git push;
-hub pull-request;
+gh pr create;
 
 read  -n 1 -p "wait for merge"
 
@@ -54,7 +54,7 @@ git commit -a -m "Update osu-web sourced translations from crowdin";
 git push;
 
 
-hub pull-request;
+gh pr create;
 
 
 
