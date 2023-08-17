@@ -23,6 +23,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export DOCKER_SCAN_SUGGEST="false"
+export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 
 export FZF_TMUX=1
 export FZF_TMUX_OPTS="-p 80%"
