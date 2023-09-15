@@ -1,3 +1,4 @@
 #!/bin/bash
 
-cd "/Users/dean/Library/Application Support/Übersicht/widgets/UeberPlayer.widget/lib"; rm track; watch -n1 "osascript getTrack.scpt > new_track; mv -f new_track track;"
+cd "/Users/dean/Library/Application Support/Übersicht/widgets/UeberPlayer.widget/lib"; 
+osascript getTrack.scpt
