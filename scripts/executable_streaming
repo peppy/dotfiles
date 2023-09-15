@@ -9,6 +9,7 @@ history delete --contains "youtube."
 history delete --contains "google."
 history delete --contains "cheat"
 history delete --contains "history delete"
+history delete --contains "yt-dlp"
 
 echo "Killing unnecessary apps..."
 
