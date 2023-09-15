@@ -1,6 +1,6 @@
 #! /bin/bash
 
-version=$(cd ../osu-resources; hub release -L1)
+version=$(cd ../osu-resources; gh release list -L1 | head -n1 | awk '{print $1;}')
 
 sed -i '' -e "s/ppy.osu.Game.Resources\" Version=\"[^\"]*\"/ppy.osu.Game.Resources\" Version=\"${version}\"/g" osu.Game/osu.Game.csproj
 sed -i '' -e "s/ppy.osu.Game.Resources\" Version=\"[^\"]*\"/ppy.osu.Game.Resources\" Version=\"${version}\"/g" osu.iOS.props
