@@ -1,6 +1,6 @@
 #! /bin/bash
 
-version=$(cd ../osu-resources; hub release -L1)
+version=$(cd ../osu-resources; gh release list -L1 | head -n1 | awk '{print $1;}')
 
 git btm
 git checkout -B update-resources
