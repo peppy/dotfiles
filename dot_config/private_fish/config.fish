@@ -28,6 +28,8 @@ export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 export FZF_TMUX=1
 export FZF_TMUX_OPTS="-p 80%"
 
+alias ls='eza'
+
 # see https://github.com/dotnet/runtime/issues/68018
 # export DOTNET_ReadyToRun=0
 
