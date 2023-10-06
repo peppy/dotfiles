@@ -2,11 +2,8 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title GHFM before-after
+# @raycast.title Github Formatter Markdown (before-after-comparison)
 # @raycast.mode silent
-
-# Optional parameters:
-# @raycast.icon 📊
 
 # Documentation:
 # @raycast.author ppy
