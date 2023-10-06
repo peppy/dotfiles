@@ -1,34 +1,40 @@
 #! /opt/homebrew/bin/fish
 
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Prepare for streaming
+# @raycast.mode silent
+
+# Documentation:
+# @raycast.author ppy
+# @raycast.authorURL https://raycast.com/ppy
+
 echo "Purging command line history..."
 
-history delete --contains "SHARED"
-history delete --contains ".osu."
-history delete --contains "ping"
-history delete --contains "youtube."
-history delete --contains "google."
-history delete --contains "cheat"
-history delete --contains "history delete"
-history delete --contains "yt-dlp"
+yes | history delete --contains "SHARED"
+yes | history delete --contains ".osu."
+yes | history delete --contains "ping"
+yes | history delete --contains "youtube."
+yes | history delete --contains "google."
+yes | history delete --contains "cheat"
+yes | history delete --contains "history delete"
+yes | history delete --contains "yt-dlp"
 
 echo "Killing unnecessary apps..."
 
 pkill -x "datagrip"
 pkill -x "Superhuman"
-pkill -x "Safari"
-pkill -x "Things3"
+# pkill -x "Safari"
 pkill -x "Transmit"
-pkill -x "Sequel Pro"
 pkill -x "Bear"
-pkill -x "1Password"
 pkill -x "Keychain Access"
 pkill -x "IINA"
 
-echo "Destroying browser history..."
+# echo "Destroying browser history..."
 
-rm -rf ~/Library/Caches/Safari
-rm -rf ~/Library/Safari/History*
-touch ~/Library/Caches/Safari
+# rm -rf ~/Library/Caches/Safari
+# rm -rf ~/Library/Safari/History*
+# touch ~/Library/Caches/Safari
 
 echo "Emptying trash..."
 
@@ -39,6 +45,6 @@ echo "Starting streaming apps..."
 open /Applications/OBS.app
 sleep 1
 open /System/Applications/Music.app
-sleep 1
-open /Applications/Safari.app
+# sleep 1
+# open /Applications/Safari.app
 
