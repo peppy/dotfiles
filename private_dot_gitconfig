@@ -9,7 +9,7 @@
 [user]
 	email = pe@ppy.sh
 	name = Dean Herbert
-	signingkey = 958ABB49
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBA0E365B6pMO2s9sX41o5CNVL8xx3pyt0Ioqb3OfsTu
 [merge]
 	tool = kdiff3
 	conflictstyle = diff3
@@ -72,14 +72,20 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[credential]
-	helper = osxkeychain
 [pull]
 	rebase = true
 	ff = only
 [rebase]
 	autoStash = true
 [credential "https://github.com"]
+	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
+	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
