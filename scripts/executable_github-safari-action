@@ -1,9 +1,18 @@
 #!/bin/bash
 
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Github safari actions
+# @raycast.mode silent
+
+# Documentation:
+# @raycast.author ppy
+# @raycast.authorURL https://raycast.com/ppy
+
 url=`safari-ctl`
 repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
 
-cd ~/Projects/$repo/
+cd ~/Projects/$repo/ > /dev/null 2>&1
 
 choice=`printf "checkout\napprove\napprove & automerge\napprove & force merge\nforce merge\n \n# operating on\n# repo: $repo\n# URL: $url" | choose -i`
 
