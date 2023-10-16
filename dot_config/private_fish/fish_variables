@@ -33,4 +33,4 @@ SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR fish_user_paths:/Users/dean/Projects/yabai/bin\x1e/Users/dean/Projects/skhd/bin\x1e/usr/local/opt/crowdin\x403/bin\x1e/opt/homebrew/bin\x1e/usr/local/sbin\x1e/Users/dean/scripts\x1e/usr/local/opt/fzf/bin
+SETUVAR fish_user_paths:/Users/dean/Projects/yabai/bin\x1e/Users/dean/Projects/skhd/bin\x1e/Users/dean/Projects/lazygit\x1eUsers/dean/Projects/skhd/bin\x1e/usr/local/opt/crowdin\x403/bin\x1e/opt/homebrew/bin\x1e/usr/local/sbin\x1e/Users/dean/scripts\x1e/usr/local/opt/fzf/bin
