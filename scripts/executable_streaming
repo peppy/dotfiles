@@ -24,9 +24,10 @@ echo "Killing unnecessary apps..."
 
 pkill -x "datagrip"
 pkill -x "Superhuman"
-# pkill -x "Safari"
+pkill -x "Safari"
 pkill -x "Transmit"
 pkill -x "Bear"
+pkill -x "Things3"
 pkill -x "Keychain Access"
 pkill -x "IINA"
 
@@ -42,9 +43,9 @@ rm -rf ~/.Trash/*
 
 echo "Starting streaming apps..."
 
+open /Applications/Audio\ Hijack.app
 open /Applications/OBS.app
-sleep 1
-open /System/Applications/Music.app
+open /Applications/Safari.app
+# open /System/Applications/Music.app
 # sleep 1
-# open /Applications/Safari.app
 
