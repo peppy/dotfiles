@@ -40,9 +40,6 @@ yabai -m rule --add app="Safari" space=^3
 yabai -m space 4 --layout stack
 yabai -m space 4 --padding abs:8:8:8:8
 yabai -m rule --add app="Jump Desktop" space=^4
-yabai -m rule --add app="Jump Desktop" title="Jump Desktop" space=^4 manage=off
-yabai -m rule --add app="Parallels Desktop" title="Control Center" space=^4 manage=off
-yabai -m rule --add app="Parallels Desktop" space=^4
 
 # space 5: stack
 yabai -m space 4 --layout stack
