@@ -11,14 +11,14 @@
 
 echo "Purging command line history..."
 
-yes | history delete --contains "SHARED"
-yes | history delete --contains ".osu."
-yes | history delete --contains "ping"
-yes | history delete --contains "youtube."
-yes | history delete --contains "google."
-yes | history delete --contains "cheat"
-yes | history delete --contains "history delete"
-yes | history delete --contains "yt-dlp"
+yes all | history delete --contains "SHARED"
+yes all | history delete --contains ".osu."
+yes all | history delete --contains "ping"
+yes all | history delete --contains "youtube."
+yes all | history delete --contains "google."
+yes all | history delete --contains "cheat"
+yes all | history delete --contains "history delete"
+yes all | history delete --contains "yt-dlp"
 
 echo "Killing unnecessary apps..."
 
