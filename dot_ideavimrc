@@ -6,6 +6,7 @@ set surround
 set ideajoin
 set multiple-cursors
 set highlightedyank
+set quickscope
 
 " set clipboard+=unnamed
 
