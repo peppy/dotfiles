@@ -33,9 +33,9 @@ alias ls='eza'
 # see https://github.com/dotnet/runtime/issues/68018
 # export DOTNET_ReadyToRun=0
 
-if status is-interactive
-    cd ~/Projects
-end
+#if status is-interactive
+#    cd ~/Projects
+#end
 
 function ssh
   set ps_res (ps -p (ps -p %self -o ppid= | xargs) -o comm=)
@@ -46,4 +46,13 @@ function ssh
   else
     command ssh $argv
   end
+end
+
+function yy
+	set tmp (mktemp -t "yazi-cwd.XXXXXX")
+	yazi $argv --cwd-file="$tmp"
+	if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+		cd -- "$cwd"
+	end
+	rm -f -- "$tmp"
 end
