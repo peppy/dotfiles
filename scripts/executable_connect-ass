@@ -1,0 +1,4 @@
+#!/bin/bash
+
+kubectl --context osu-sfo2 -n osu-ass exec -it $(kubectl --context osu-sfo2 -n osu-ass get pod -l app=osu-ass -o jsonpath='{.items[0].metadata.name}') -- bash
+

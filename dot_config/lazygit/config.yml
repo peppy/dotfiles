@@ -8,17 +8,12 @@ gui:
     scrollPastBottom: false # enable scrolling past the bottom
     commitLength:
         show: true
-    mouseEvents: true
+    mouseEvents: false
     skipDiscardChangeWarning: true
     showFileTree: true
     # showCommandLog: true
-    # showIcons: true
+    showIcons: false
     showBottomLine: false
-    theme:
-        selectedLineBgColor:
-            - '#413660'
-            # selectedRangeBgColor:
-            #   - '#413660'
 refresher:
     refreshInterval: 60
 git:
@@ -35,6 +30,7 @@ confirmOnQuit: true
 quitOnTopLevelReturn: false
 keybinding:
     universal:
+        toggleRangeSelect: 'V'
         quit: 'q'
         quit-alt1: 'q' # alternative/alias of quit
         return: '<esc>' # return to previous menu, will quit if there's nowhere to return
@@ -63,7 +59,7 @@ keybinding:
         scrollDownMain-alt1: 'J' # main panel scrool down
         scrollUpMain-alt2: '<c-u>' # main panel scrool up
         scrollDownMain-alt2: '<c-d>' # main panel scrool down
-        executeCustomCommand: 'X'
+        executeShellCommand: 'X'
         createRebaseOptionsMenu: 'M'
         pushFiles: 'P'
         pullFiles: 'p'
@@ -120,9 +116,6 @@ keybinding:
         popStash: 'g'
     commitFiles:
         checkoutCommitFile: 'c'
-    main:
-        toggleDragSelect: 'v'
-        toggleDragSelect-alt: 'V'
         toggleSelectHunk: 'a'
         pickBothHunks: 'b'
         undo: 'z'
@@ -158,7 +151,7 @@ customCommands:
             - name: 'apply'
               value: 'pbpaste | git apply -'
             - name: 'copy'
-              value: 'git diff | pbcopy'
+              value: "echo \"\\`\\`\\`diff\n`git diff --cached`\n\n\\`\\`\\`\" | pbcopy"
       command: "{{index .PromptResponses 0}}"
       context: 'localBranches'
     - key: 'U'
