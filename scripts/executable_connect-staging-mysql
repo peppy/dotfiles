@@ -1,0 +1,4 @@
+#!/bin/bash
+
+kubectl --context osu-sfo2-staging -n osu-web exec -it osu-web-mysql-0 -- mysql -u osuweb osu
+

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+ssh -f -N -L 3317:localhost:3306 db-master-newer
+
+export DB_HOST="127.0.0.1"
+export DB_PORT="3317"
+
+cd ~/Projects/osu-ass/osu.Server.AutobahnSurveillanceSystem/
+
+dotnet run -- misc lazer-changelog $@
+
+rider markdown.md
+
+gh gist edit https://gist.github.com/peppy/ea3c5d3b93a707417616245411a143d4 markdown_final.md
+
+kill $(ps aux | grep '[s]sh -f -N -L 3317:localhost:3306' | awk '{print $2}')
+

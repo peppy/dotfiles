@@ -9,6 +9,9 @@
 # @raycast.author ppy
 # @raycast.authorURL https://raycast.com/ppy
 
+echo "Setting streaming focus..."
+shortcuts run "Set streaming focus"
+
 echo "Purging command line history..."
 
 yes all | history delete --contains "SHARED"
@@ -27,15 +30,9 @@ pkill -x "Superhuman"
 pkill -x "Safari"
 pkill -x "Transmit"
 pkill -x "Bear"
-pkill -x "Things3"
 pkill -x "Keychain Access"
+pkill -x "kube"
 pkill -x "IINA"
-
-# echo "Destroying browser history..."
-
-# rm -rf ~/Library/Caches/Safari
-# rm -rf ~/Library/Safari/History*
-# touch ~/Library/Caches/Safari
 
 echo "Emptying trash..."
 
@@ -44,8 +41,25 @@ rm -rf ~/.Trash/*
 echo "Starting streaming apps..."
 
 open /Applications/Audio\ Hijack.app
-open /Applications/OBS.app
 open /Applications/Safari.app
 # open /System/Applications/Music.app
 # sleep 1
 
+sleep 2
+
+echo "Deleting clipboard history..."
+
+skhd -k "cmd+shift-h"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
+
+echo "Deleting chat history..."
+
+skhd -k "cmd+shift-space"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
+
+echo "Starting now playing updates..."
+
+update-now-playing
+
+echo "Setting Things filter..."
+open "things:///show?id=today&filter=Streamable"
+
+open /Applications/OBS.app
