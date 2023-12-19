@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Checkout safari pull request
+# @raycast.mode compact
+# @raycast.icon 🚚
+
+# Documentation:
+# @raycast.author ppy
+# @raycast.authorURL https://raycast.com/ppy
+# @raycast.packageName Safari GitHub actions
+
+url=`safari-ctl`
+
+repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
+cd ~/Projects/$repo/ > /dev/null 2>&1
+
+eval "$(gh pr view $url --json "number,title,url,author" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)", @sh "author=\(.author.login)"')"
+
+if [[ -z "$title" ]]; then
+  echo "Current tab is not a pull request!"
+  exit 1
+fi
+
+gh pr edit $url --add-reviewer peppy
+gh pr checkout $url
+osascript -e 'tell application "Safari" to do JavaScript "location.reload();" in document 1'
+
+echo "Checked out #$number ($title)"
+
+if [[ "$author" == *"peppy"* ]]; then
+    echo "- [~] $title ($url)" | pbcopy
+else
+    echo "- [~] Review: $title ($url)" | pbcopy
+fi
