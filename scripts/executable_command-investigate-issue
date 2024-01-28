@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Investigate safari issue
+# @raycast.mode compact
+# @raycast.icon 🔍 
+
+# Documentation:
+# @raycast.author ppy
+# @raycast.authorURL https://raycast.com/ppy
+# @raycast.packageName Safari GitHub actions
+
+url=`safari-ctl`
+
+repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
+cd ~/Projects/$repo/ > /dev/null 2>&1
+
+if [[ "$url" != *"/issues/"* ]]; then
+    echo "Not a valid issue in tab!"
+    exit 1
+fi
+
+eval "$(gh issue view $url --json "number,title,url" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)"')"
+echo "- [~] Investigate: $title ($url)" | pbcopy
+
+gh issue edit $url --add-assignee "@me"
+osascript -e 'tell application "Safari" to do JavaScript "location.reload();" in document 1'
+
+echo "Investigating #$number ($title)"
+
