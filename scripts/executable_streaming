@@ -27,7 +27,6 @@ pkill -x "Superhuman"
 pkill -x "Safari"
 pkill -x "Transmit"
 pkill -x "Bear"
-pkill -x "Things3"
 pkill -x "Keychain Access"
 pkill -x "IINA"
 
