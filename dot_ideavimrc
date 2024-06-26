@@ -68,8 +68,7 @@ nmap <S-Space> <C-U>
 
 # nmap <Enter> <Action>(RiderDebuggerApplyEncChagnes)
 
-map <Leader>wt <Action>(ActivateUnitTestsToolWindow)
-map <Leader>wT <Action>(ActivateTODOToolWindow)
+map <Leader>wt <Action>(ActivateTestsToolWindow)
 map <Leader>wd <Action>(ActivateDebugToolWindow)
 map <Leader>ws <Action>(ActivateProjectToolWindow)
 map <Leader>we <Action>(Rider.ProblemsView.ErrorsInSolution)
