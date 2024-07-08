@@ -1,0 +1,22 @@
+#!/bin/bash
+
+tmux has-session -t main 2>/dev/null
+
+if [ $? != 0 ]; then
+    # Create a new tmux session named 'main'
+    tmux new-session -d -s main
+
+    tmux send-keys -t main:1 'vim ~/Documents/worklog.md' C-m
+    sleep 1
+    tmux rename-window -t main:1 -n 'worklog'
+
+    tmux new-window -t main:2 -n 'lazygit'
+    tmux send-keys -t main:2 'cd ~/Projects/osu && lazygit' C-m
+
+    tmux new-window -t main:3
+fi
+
+# Attach to the session
+tmux attach -t main
+
+tmux select-window -t 1
