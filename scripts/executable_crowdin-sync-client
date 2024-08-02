@@ -1,0 +1,36 @@
+cd ~/Projects/osu-resources
+git btm
+
+git fetch upstream;
+git checkout l10n_master;
+git reset --hard upstream/l10n_master;
+git merge upstream/master;
+
+# Update osu-resources from new osu (client) first localisations
+
+cd ~/Projects/osu
+git btm
+
+dotnet tool restore
+dotnet localisation to-resx osu.Game/osu.Game.csproj --output ../osu-resources/osu.Game.Resources/Localisation/
+
+cd ~/Projects/osu-resources
+git add -A
+git commit -a -m "Add new client localisations";
+crowdin upload sources -b client;
+
+crowdin download -b client --skip-untranslated-files
+git add -A
+git commit -a -m "Update translations from crowdin";
+git push;
+
+# Pull translations in from osu-web
+cd ~/Projects/osu
+dotnet localisation from-php ../osu-web ../osu-resources/osu.Game.Resources/osu.Game.Resources.csproj
+cd ~/Projects/osu-resources
+git add -A
+git commit -a -m "Update osu-web sourced translations from crowdin";
+git push;
+
+gh pr create;
+
