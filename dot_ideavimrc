@@ -68,7 +68,7 @@ nmap <S-Space> <C-U>
 
 # nmap <Enter> <Action>(RiderDebuggerApplyEncChagnes)
 
-map <Leader>wt <Action>(ActivateTestsToolWindow)
+map <Leader>wt <Action>(ActivateUnitTestsToolWindow)
 map <Leader>wd <Action>(ActivateDebugToolWindow)
 map <Leader>ws <Action>(ActivateProjectToolWindow)
 map <Leader>we <Action>(Rider.ProblemsView.ErrorsInSolution)
@@ -79,6 +79,7 @@ map <Leader>wp <Action>(ActivatedotTraceProfilerToolWindow)
 map <Leader>wc <Action>(ShowSolutionPropertiesAction)
 map <Leader>wn <Action>(ActivateNuGetToolWindow)
 map <Leader>ww <Action>(HideAllWindows)
+map <Leader>wb <Action>(ViewStatusBar)
 
 " extract actions
 map <Leader>xi <Action>(ExtractInterface)
