@@ -35,6 +35,7 @@ confirmOnQuit: true
 quitOnTopLevelReturn: false
 keybinding:
     universal:
+        toggleRangeSelect: 'V'
         quit: 'q'
         quit-alt1: 'q' # alternative/alias of quit
         return: '<esc>' # return to previous menu, will quit if there's nowhere to return
@@ -120,9 +121,6 @@ keybinding:
         popStash: 'g'
     commitFiles:
         checkoutCommitFile: 'c'
-    main:
-        toggleDragSelect: 'v'
-        toggleDragSelect-alt: 'V'
         toggleSelectHunk: 'a'
         pickBothHunks: 'b'
         undo: 'z'
