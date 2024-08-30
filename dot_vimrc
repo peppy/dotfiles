@@ -57,7 +57,6 @@ autocmd BufEnter * call system("tmux rename-window \"vim (" . expand("%:t") . ")
 autocmd VimLeave * call system("tmux set-window-option automatic-rename on")
 
 call vundle#begin()
-Plugin '907th/vim-auto-save'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'dense-analysis/ale'
@@ -82,8 +81,6 @@ call vundle#end()
 
 " colorscheme Tomorrow-Night
 colorscheme gruvbox
-
-let g:auto_save = 1
 
 filetype plugin indent on
 
