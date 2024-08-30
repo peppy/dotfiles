@@ -1,4 +1,5 @@
 #!/bin/bash
-
+ 
+pkill nowplaying-cli
 cd "/Users/dean/Library/Application Support/Übersicht/widgets/UeberPlayer.widget/lib"; 
-osascript getTrack.scpt
+nohup ./nowplaying-cli &
