@@ -48,3 +48,16 @@ open /Applications/Safari.app
 # open /System/Applications/Music.app
 # sleep 1
 
+sleep 2
+
+echo "Deleting clipboard history..."
+
+skhd -k "cmd+shift-h"; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
+
+echo "Deleting chat history..."
+
+skhd -k "cmd+shift-space"; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
+
+echo "Starting now playing updates..."
+
+update-now-playing
