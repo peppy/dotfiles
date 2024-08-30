@@ -41,11 +41,12 @@ meh - r : yabai -m space --focus 2;                      # yabai -m window --foc
 cmd + alt - r : rider (ls -tp ~/Downloads/*.log | grep -v /\$ | head -1)
 # open spotlight from an iOS remote session
 
-# meh - u : ~/go/bin/obs-cli scene switch "main"
-# meh - i : ~/go/bin/obs-cli scene switch "brb"
-# meh - o : ~/go/bin/obs-cli scene switch "shit hit fan"
+# meh - u : yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "OBS Studio") | .id'); skhd -k "meh-u";
+# meh - i : yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "OBS Studio") | .id'); skhd -k "meh-i";
+# meh - o : yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "OBS Studio") | .id'); skhd -k "meh-o";
+
 # kill stream with meh-'
-# meh - 0x27 : ~/go/bin/obs-cli stream stop; pkill obs
+meh - 0x27 : pkill OBS
 
 meh - backspace : pkill OBS; pmset displaysleepnow
 
