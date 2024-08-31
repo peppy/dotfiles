@@ -52,12 +52,15 @@ sleep 2
 
 echo "Deleting clipboard history..."
 
-skhd -k "cmd+shift-h"; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
+skhd -k "cmd+shift-h"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
 
 echo "Deleting chat history..."
 
-skhd -k "cmd+shift-space"; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
+skhd -k "cmd+shift-space"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
 
 echo "Starting now playing updates..."
 
 update-now-playing
+
+echo "Setting Things filter..."
+open "things:///show?query=👨‍💻 Dev&filter=Streamable"

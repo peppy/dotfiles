@@ -23,14 +23,38 @@ if [[ -z "$title" ]]; then
   exit 1
 fi
 
+if [[ "$author" == *"peppy"* ]]; then
+    task_title="$title ($url)"
+else
+    task_title="Review: $title ($url)"
+fi
+
+task_id=$(osascript <<EOF
+tell application "Things3"
+    set task_list to to dos of list "Today" whose name is "$task_title"
+    if (count of task_list) > 0 then
+        set task_id to id of item 1 of task_list
+        return task_id
+    else
+        return "no"
+    end if
+end tell
+EOF
+)
+
+auth_token=$(security find-generic-password -s "things-url-auth-token" -w)
+
+if [ "$task_id" != "no" ]; then
+    open "things:///update?id=$task_id&title=$(echo -n "$task_title" | jq -sRr @uri)&when=today&tags=Streamable&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token&completed=false"
+else
+    open "things:///add?title=$(echo -n "$task_title" | jq -sRr @uri)&when=today&tags=Streamable&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token"
+fi
+
 gh pr edit $url --add-reviewer peppy
-gh pr checkout $url
 osascript -e 'tell application "Safari" to do JavaScript "location.reload();" in document 1'
 
-echo "Checked out #$number ($title)"
+gh pr checkout $url
 
-if [[ "$author" == *"peppy"* ]]; then
-    echo "- [~] $title ($url)" | pbcopy
-else
-    echo "- [~] Review: $title ($url)" | pbcopy
-fi
+echo "Checked out #$number ($title)"
+osascript -e 'tell application "Safari" to do JavaScript "window.scrollTo(0, document.body.scrollHeight);" in document 1'
+

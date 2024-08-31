@@ -22,7 +22,29 @@ if [[ "$url" != *"/issues/"* ]]; then
 fi
 
 eval "$(gh issue view $url --json "number,title,url" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)"')"
-echo "- [~] Investigate: $title ($url)" | pbcopy
+
+task_title="Investigate: $title ($url)"
+
+task_id=$(osascript <<EOF
+tell application "Things3"
+    set task_list to to dos of list "Today" whose name is "$task_title"
+    if (count of task_list) > 0 then
+        set task_id to id of item 1 of task_list
+        return task_id
+    else
+        return "no"
+    end if
+end tell
+EOF
+)
+
+auth_token=$(security find-generic-password -s "things-url-auth-token" -w)
+
+if [ "$task_id" != "no" ]; then
+    open "things:///update?id=$task_id&title=$(echo -n "$task_title" | jq -sRr @uri)&when=today&tags=Streamable&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token&completed=false"
+else
+    open "things:///add?title=$(echo -n "$task_title" | jq -sRr @uri)&when=today&tags=Streamable&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token"
+fi
 
 gh issue edit $url --add-assignee "@me"
 osascript -e 'tell application "Safari" to do JavaScript "location.reload();" in document 1'
