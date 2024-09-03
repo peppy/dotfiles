@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Format standup output from things output
+# @raycast.mode compact
+# @raycast.icon 🧍
+
+# Documentation:
+# @raycast.author ppy
+# @raycast.authorURL https://raycast.com/ppy
+# @raycast.packageName Safari GitHub actions
+
+# Read the input from the clipboard
+input=$(pbpaste)
+
+# Extract the date from the first line of the input
+date=$(echo "$input" | head -n 1 | sed -n 's/.*(\([0-9/]*\)).*/\1/p' | sed 's/\//-/g')
+
+# Start the output with the date header
+output="# $date\n\n"
+
+# Process each line of the input
+while IFS= read -r line; do
+  # Extract the status of the task
+  status=$(echo "$line" | grep -o '\[[x~ ]\]')
+  # Extract the description of the task, removing the date
+  description=$(echo "$line" | sed -E 's/^.*\) //')
+  
+  echo $status
+  echo $description
+  # Append the formatted line to the output
+  output+="- $status $description\n"
+done <<< "$input"
+
+# Copy the output to the clipboard
+echo -e "\`\`\`md\n$output\n\`\`\`" | pbcopy
+
