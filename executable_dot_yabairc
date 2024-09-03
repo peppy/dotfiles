@@ -52,7 +52,7 @@ yabai -m rule --add app="Discord" display=2
 yabai -m rule --add app="Discord PTB" display=2
 yabai -m rule --add app="Music" display=2
 yabai -m rule --add app="OBS" display=2
-yabai -m rule --add app="Things" display=2
+yabai -m rule --add app="Things" display=1
 yabai -m rule --add app="Podcasts" display=2
 
 # things which create floating children
