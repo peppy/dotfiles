@@ -43,7 +43,6 @@ rm -rf ~/.Trash/*
 echo "Starting streaming apps..."
 
 open /Applications/Audio\ Hijack.app
-open /Applications/OBS.app
 open /Applications/Safari.app
 # open /System/Applications/Music.app
 # sleep 1
@@ -63,4 +62,6 @@ echo "Starting now playing updates..."
 update-now-playing
 
 echo "Setting Things filter..."
-open "things:///show?query=👨‍💻 Dev&filter=Streamable"
+open "things:///show?id=today&filter=Streamable"
+
+open /Applications/OBS.app
