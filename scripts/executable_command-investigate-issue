@@ -16,12 +16,15 @@ url=`safari-ctl`
 repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
 cd ~/Projects/$repo/ > /dev/null 2>&1
 
-if [[ "$url" != *"/issues/"* ]]; then
+if [[ "$url" == *"/issues/"* ]]; then
+    eval "$(gh issue view $url --json "number,title,url" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)"')"
+elif [[ "$url" == *"/discussions/"* ]]; then
+    discussion_number=`echo $url | sed -e 's,https://github.com/.*/\([0-9]\),\1,g'`
+    eval "$(gh api repos/ppy/$repo/discussions/$discussion_number --jq '{number: .number, title: .title, url: .html_url}' | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)"')"
+else
     echo "Not a valid issue in tab!"
     exit 1
 fi
-
-eval "$(gh issue view $url --json "number,title,url" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)"')"
 
 task_title="Investigate: $title ($url)"
 
