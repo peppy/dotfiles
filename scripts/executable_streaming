@@ -28,6 +28,7 @@ pkill -x "Safari"
 pkill -x "Transmit"
 pkill -x "Bear"
 pkill -x "Keychain Access"
+pkill -x "kube"
 pkill -x "IINA"
 
 # echo "Destroying browser history..."
