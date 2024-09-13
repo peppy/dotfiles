@@ -28,9 +28,11 @@ fi
 
 task_title="Investigate: $title ($url)"
 
+task_title_escaped=$(echo "$task_title" | sed 's/"/\\"/g')
+
 task_id=$(osascript <<EOF
 tell application "Things3"
-    set task_list to to dos of list "Today" whose name is "$task_title"
+    set task_list to to dos of list "Today" whose name is "$task_title_escaped"
     if (count of task_list) > 0 then
         set task_id to id of item 1 of task_list
         return task_id
