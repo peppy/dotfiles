@@ -14,25 +14,40 @@
 # Read the input from the clipboard
 input=$(pbpaste)
 
-# Extract the date from the first line of the input
-date=$(echo "$input" | head -n 1 | sed -n 's/.*(\([0-9/]*\)).*/\1/p' | sed 's/\//-/g')
+# Initialize the previous date variable
+prev_date=""
 
-# Start the output with the date header
-output="# $date\n\n"
+# Initialize the output variable
+output=""
+first=1
 
 # Process each line of the input
 while IFS= read -r line; do
+  # Extract the date from the current line
+  current_date=$(echo "$line" | sed -n 's/.*(\([0-9/]*\)).*/\1/p' | sed 's/\//-/g')
+
+  # If the current date is different from the previous date, update the output with the new date header
+  if [ "$current_date" != "$prev_date" ]; then
+    if [ $first -eq 1 ]; then
+        output+="\`\`\`md\n# $current_date\n\n"
+        first=0
+    else
+        output+="\`\`\`\n\`\`\`md\n# $current_date\n\n"
+    fi
+
+    prev_date="$current_date"
+  fi
+  
   # Extract the status of the task
   status=$(echo "$line" | grep -o '\[[x~ ]\]')
+  
   # Extract the description of the task, removing the date
   description=$(echo "$line" | sed -E 's/^.*\) //')
   
-  echo $status
-  echo $description
   # Append the formatted line to the output
   output+="- $status $description\n"
 done <<< "$input"
 
 # Copy the output to the clipboard
-echo -e "\`\`\`md\n$output\n\`\`\`" | pbcopy
+echo -e "$output" | pbcopy
 
