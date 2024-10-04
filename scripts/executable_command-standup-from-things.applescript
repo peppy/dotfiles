@@ -31,7 +31,7 @@ tell application "Things3"
 		set taskName to name of t
 		set taskNotes to notes of t
 		set formattedNotes to ""
-		set urlInTitle to taskName
+		set urlInTitle to "**" & taskName & "**"
 
 		if taskNotes is not "" then
 			set noteLines to paragraphs of taskNotes
@@ -61,9 +61,9 @@ tell application "Things3"
                             set titlePart to text 2 thru -1 of titlePart
                         end if
 
-                        set urlInTitle to text 1 thru colonPos of taskName & " [" & titlePart & "](<" & linkURL & ">)"
+                        set urlInTitle to text 1 thru colonPos of taskName & " **" & titlePart & "** ([view](<" & linkURL & ">))"
                     else
-                        set urlInTitle to "[" & taskName & "](<" & linkURL & ">)"
+                        set urlInTitle to "**" & taskName & "** ([view](<" & linkURL & ">))"
                     end if
                 end if
 
