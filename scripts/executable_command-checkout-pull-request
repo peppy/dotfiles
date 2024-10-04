@@ -2,7 +2,7 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title Checkout safari pull request
+# @raycast.title Checkout or investigate GitHub work item
 # @raycast.mode compact
 # @raycast.icon 🚚
 
@@ -16,20 +16,30 @@ url=`safari-ctl`
 repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
 cd ~/Projects/$repo/ > /dev/null 2>&1
 
-eval "$(gh pr view $url --json "number,title,url,author" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)", @sh "author=\(.author.login)"')"
-
-if [[ -z "$title" ]]; then
-  echo "Current tab is not a pull request!"
-  exit 1
-fi
-
-if [[ "$author" == *"peppy"* ]]; then
-    task_title="$title ($url)"
+if [[ "$url" == *"/pull/"* ]]; then
+    eval "$(gh pr view $url --json "number,title,url,author" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)", @sh "author=\(.author.login)"')"
+    if [[ "$author" == *"peppy"* ]]; then
+        task_title="$title"
+    else
+        task_title="Review: $title"
+    fi
+elif [[ "$url" == *"/issues/"* ]]; then
+    eval "$(gh issue view $url --json "number,title,url" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)"')"
+    task_title="Investigate: $title"
+elif [[ "$url" == *"/discussions/"* ]]; then
+    discussion_number=`echo $url | sed -e 's,https://github.com/.*/\([0-9]\),\1,g'`
+    eval "$(gh api repos/ppy/$repo/discussions/$discussion_number --jq '{number: .number, title: .title, url: .html_url}' | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)"')"
+    task_title="Investigate: $title"
 else
-    task_title="Review: $title ($url)"
+    echo "Not a valid github tab!"
+    exit 1
 fi
+
+
+task_notes="[github ppy/$repo#$number]($url)"
 
 task_title_escaped=$(echo "$task_title" | sed 's/"/\\"/g')
+task_notes=$(echo "$task_notes" | sed 's/"/\\"/g')
 
 task_id=$(osascript <<EOF
 tell application "Things3"
@@ -47,9 +57,9 @@ EOF
 auth_token=$(security find-generic-password -s "things-url-auth-token" -w)
 
 if [ "$task_id" != "no" ]; then
-    open "things:///update?id=$task_id&title=$(echo -n "$task_title" | jq -sRr @uri)&when=today&tags=Streamable&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token&completed=false"
+    open "things:///update?id=$task_id&when=today&tags=Streamable&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token&completed=false"
 else
-    open "things:///add?title=$(echo -n "$task_title" | jq -sRr @uri)&when=today&tags=Streamable&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token"
+    open "things:///add?title=$(echo -n "$task_title_escaped" | jq -sRr @uri)&notes=$(echo -n "$task_notes" | jq -sRr @uri)&when=today&tags=Streamable&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token"
 fi
 
 gh pr edit $url --add-reviewer peppy
