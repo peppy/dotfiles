@@ -122,7 +122,7 @@ end trimEmptyLines
 
 
 on surroundURLsWithBrackets(inputText)
-	set urlPattern to "(.*)?://[a-zA-Z0-9./?=_-]+"
+	set urlPattern to "([a-z]*)?://[%~a-zA-Z0-9./?=_-]+"
 	set modifiedText to do shell script "echo " & quoted form of inputText & " | sed -E 's|(" & urlPattern & ")|<\\1>|g'"
 	return modifiedText
 end surroundURLsWithBrackets
