@@ -13,9 +13,7 @@
 # @raycast.authorURL https://raycast.com/ppy
 
 tell application "Things3"
-	set dailyTag to first tag whose name is "Daily"
-
-	set todayTasks to to dos of list "Today" whose ((name of area of it contains "Dev") or (name of area of it contains "Upkeep")) and not (tag names of it contains "daily")
+	set todayTasks to to dos of list "Today" whose ((name of area of it contains "Dev") or (name of area of it contains "Upkeep")) and not (tag names of it contains "Repeating")
     set firstCompletedTask to missing value
 
     repeat with task in todayTasks
