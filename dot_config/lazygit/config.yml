@@ -156,7 +156,7 @@ customCommands:
             - name: 'apply'
               value: 'pbpaste | git apply -'
             - name: 'copy'
-              value: "echo \"\\`\\`\\`diff\n`git diff`\n\n\\`\\`\\`\" | pbcopy"
+              value: "echo \"\\`\\`\\`diff\n`git diff --cached`\n\n\\`\\`\\`\" | pbcopy"
       command: "{{index .PromptResponses 0}}"
       context: 'localBranches'
     - key: 'U'
