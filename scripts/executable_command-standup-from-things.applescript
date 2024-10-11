@@ -84,7 +84,7 @@ tell application "Things3"
 		else if status of t is canceled then
 			set taskIcon to "🛑"
 		else
-			set taskIcon to "🏃‍➡️"
+			set taskIcon to "🏃‍"
 		end if
 
 		set completedTasks to completedTasks & "- " & taskIcon & " " & urlInTitle & linefeed & formattedNotes
