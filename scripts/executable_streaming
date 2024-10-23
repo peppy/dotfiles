@@ -9,6 +9,9 @@
 # @raycast.author ppy
 # @raycast.authorURL https://raycast.com/ppy
 
+echo "Setting streaming focus..."
+shortcuts run "Set streaming focus"
+
 echo "Purging command line history..."
 
 yes all | history delete --contains "SHARED"
@@ -30,12 +33,6 @@ pkill -x "Bear"
 pkill -x "Keychain Access"
 pkill -x "kube"
 pkill -x "IINA"
-
-# echo "Destroying browser history..."
-
-# rm -rf ~/Library/Caches/Safari
-# rm -rf ~/Library/Safari/History*
-# touch ~/Library/Caches/Safari
 
 echo "Emptying trash..."
 
