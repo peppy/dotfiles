@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ssh -f -N -L 3317:localhost:3306 db-master
+ssh -f -N -L 3317:localhost:3306 db-master-newer
 
 export DB_HOST="127.0.0.1"
 export DB_PORT="3317"
