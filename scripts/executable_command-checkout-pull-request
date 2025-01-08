@@ -17,9 +17,18 @@ repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
 cd ~/Projects/$repo/ > /dev/null 2>&1
 
 if [[ "$url" == *"/pull/"* ]]; then
-    eval "$(gh pr view $url --json "number,title,url,author" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)", @sh "author=\(.author.login)"')"
+    eval "$(gh pr view $url --json "number,title,url,author,createdAt" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)", @sh "author=\(.author.login)", @sh "created_at=\(.createdAt)"')"
+
     if [[ "$author" == *"peppy"* ]]; then
-        task_title="$title"
+        pr_time=$(date -d "$created_at" +%s)
+        current_time=$(date +%s)
+        time_diff=$((current_time - pr_time))
+
+        if [ $time_diff -le 7200 ]; then
+          task_title="$title"
+        else
+          task_title="Fixup: $title"
+        fi
     else
         task_title="Review: $title"
     fi
@@ -74,4 +83,3 @@ gh pr checkout $url
 
 echo "Checked out #$number ($title)"
 osascript -e 'tell application "Safari" to do JavaScript "window.scrollTo(0, document.body.scrollHeight);" in document 1'
-
