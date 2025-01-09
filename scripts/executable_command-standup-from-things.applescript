@@ -107,17 +107,28 @@ on padNumber(n)
 end padNumber
 
 on trimEmptyLines(noteLines)
+    -- Remove empty lines from the beginning
     repeat while (noteLines is not {} and first item of noteLines is "")
-        set noteLines to items 2 thru -1 of noteLines
+        if (count of noteLines) > 1 then
+            set noteLines to items 2 thru -1 of noteLines
+        else
+            set noteLines to {}
+            exit repeat
+        end if
     end repeat
-
+    
+    -- Remove empty lines from the end
     repeat while (noteLines is not {} and last item of noteLines is "")
-        set noteLines to items 1 thru -2 of noteLines
+        if (count of noteLines) > 1 then
+            set noteLines to items 1 thru -2 of noteLines
+        else
+            set noteLines to {}
+            exit repeat
+        end if
     end repeat
-
+    
     return noteLines
 end trimEmptyLines
-
 
 on surroundURLsWithBrackets(inputText)
 	set urlPattern to "([a-z]*)?://[%~a-zA-Z0-9./?=_-]+"
