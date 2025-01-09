@@ -78,9 +78,9 @@ else
     gh issue edit $url --add-assignee "@me"
 fi
 
-osascript -e 'tell application "Safari" to do JavaScript "location.reload();" in document 1'
+# osascript -e 'tell application "Safari" to do JavaScript "location.reload();" in document 1'
 
 gh pr checkout $url
 
 echo "Checked out #$number ($title)"
-osascript -e 'tell application "Safari" to do JavaScript "window.scrollTo(0, document.body.scrollHeight);" in document 1'
+# osascript -e 'tell application "Safari" to do JavaScript "window.scrollTo(0, document.body.scrollHeight);" in document 1'
