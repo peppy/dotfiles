@@ -20,7 +20,8 @@ if [[ "$url" == *"/pull/"* ]]; then
     eval "$(gh pr view $url --json "number,title,url,author,createdAt" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)", @sh "author=\(.author.login)", @sh "created_at=\(.createdAt)"')"
 
     if [[ "$author" == *"peppy"* ]]; then
-        pr_time=$(date -d "$created_at" +%s)
+        # Convert PR creation time to seconds since epoch
+        pr_time=$(date -j -u -f "%Y-%m-%dT%H:%M:%SZ" "$created_at" +%s)
         current_time=$(date +%s)
         time_diff=$((current_time - pr_time))
 
