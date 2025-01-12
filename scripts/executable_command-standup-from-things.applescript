@@ -58,7 +58,7 @@ tell application "Things3"
 		set taskDate to current date
 	end if
 
-	set completedTasks to "## " & my formatDate(taskDate) & linefeed & linefeed
+	set finalOutput to "## " & my formatDate(taskDate) & linefeed & linefeed
 
 	repeat with t in todayTasks
 		set taskName to name of t
@@ -122,11 +122,17 @@ tell application "Things3"
 			set taskIcon to "🏃‍"
 		end if
 
-		set completedTasks to completedTasks & "- " & taskIcon & " " & urlInTitle & linefeed & formattedNotes
+		if project of t is not missing value then
+			set projectName to name of project of t & ": "
+		else
+		  set projectName to ""
+		end if
+
+		set finalOutput to finalOutput & "- " & taskIcon & " " & projectName & urlInTitle & linefeed & formattedNotes
 	end repeat
 end tell
 
-return completedTasks
+return finalOutput
 
 on formatDate(theDate)
 	set {year:y, month:m, day:d} to theDate
