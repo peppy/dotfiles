@@ -14,6 +14,35 @@
 
 tell application "Things3"
 	set todayTasks to to dos of list "Today" whose (tag names of it contains "Work Task")
+
+	set todayTasks to {}
+
+	-- Get tasks directly in the "Today" list
+	set allTodayTasks to to dos of list "Today"
+	repeat with aTask in allTodayTasks
+		set taskTags to tag names of aTask
+		if taskTags contains "Work Task" then
+			set end of todayTasks to aTask
+		end if
+	end repeat
+
+	-- Check each project for tasks dated today
+	set today to current date
+	set allProjects to projects
+	repeat with aProject in allProjects
+		set projectTasks to to dos of aProject
+		repeat with aTask in projectTasks
+			if (status of aTask is open) then
+				set dueDate to activation date of aTask
+				if dueDate is not missing value and dueDate = today then
+					set taskTags to tag names of aTask
+					if taskTags contains "Work Task" then
+						set end of todayTasks to aTask
+					end if
+				end if
+			end if
+		end repeat
+	end repeat
 	set firstCompletedTask to missing value
 
 	repeat with task in todayTasks
