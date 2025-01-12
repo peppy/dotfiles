@@ -117,7 +117,7 @@ tell application "Things3"
 		if status of t is completed then
 			set taskIcon to "✅"
 		else if status of t is canceled then
-			set taskIcon to "🛑"
+			set taskIcon to "⏸️"
 		else
 			set taskIcon to "🏃‍"
 		end if
