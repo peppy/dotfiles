@@ -13,17 +13,23 @@
 # @raycast.authorURL https://raycast.com/ppy
 
 tell application "Things3"
-	set todayTasks to to dos of list "Today" whose ((name of area of it contains "Dev") or (name of area of it contains "Upkeep")) and not (tag names of it contains "Repeating")
-    set firstCompletedTask to missing value
+	set todayTasks to to dos of list "Today" whose (tag names of it contains "Work Task")
+	set firstCompletedTask to missing value
 
-    repeat with task in todayTasks
-        if status of task is completed then
-            set firstCompletedTask to task
-            exit repeat
-        end if
-    end repeat
+	repeat with task in todayTasks
+		if status of task is completed then
+			set firstCompletedTask to task
+			exit repeat
+		end if
+	end repeat
 
-	set completedTasks to "## " & my formatDate(completion date of firstCompletedTask) & linefeed & linefeed
+	if firstCompletedTask is not missing value then
+		set taskDate to completion date of firstCompletedTask
+	else
+		set taskDate to current date
+	end if
+
+	set completedTasks to "## " & my formatDate(taskDate) & linefeed & linefeed
 
 	repeat with t in todayTasks
 		set taskName to name of t
@@ -37,33 +43,33 @@ tell application "Things3"
 
 			set linkURL to ""
 
-            if firstLine contains "://" then
-                if firstLine starts with "[" and firstLine contains "](" and firstLine ends with ")" then
-                    set startBracket to offset of "[" in firstLine
-                    set endBracket to offset of "]" in firstLine
-                    set startParen to offset of "(" in firstLine
-                    set endParen to offset of ")" in firstLine
-                    set linkURL to text (startParen + 1) thru (endParen - 1) of firstLine
-                else
-                    set linkURL to firstLine
-                end if
-            end if
+			if firstLine contains "://" then
+				if firstLine starts with "[" and firstLine contains "](" and firstLine ends with ")" then
+					set startBracket to offset of "[" in firstLine
+					set endBracket to offset of "]" in firstLine
+					set startParen to offset of "(" in firstLine
+					set endParen to offset of ")" in firstLine
+					set linkURL to text (startParen + 1) thru (endParen - 1) of firstLine
+				else
+					set linkURL to firstLine
+				end if
+			end if
 
 			if linkURL is not "" then
-                if linkURL contains "https" then
-                    if taskName contains ":" then
-                        set colonPos to offset of ":" in taskName
-                        set titlePart to text (colonPos + 1) thru -1 of taskName
+				if linkURL contains "https" then
+					if taskName contains ":" then
+						set colonPos to offset of ":" in taskName
+						set titlePart to text (colonPos + 1) thru -1 of taskName
 
-                        if titlePart starts with " " then
-                            set titlePart to text 2 thru -1 of titlePart
-                        end if
+						if titlePart starts with " " then
+							set titlePart to text 2 thru -1 of titlePart
+						end if
 
-                        set urlInTitle to text 1 thru colonPos of taskName & " **" & titlePart & "** ([view](<" & linkURL & ">))"
-                    else
-                        set urlInTitle to "**" & taskName & "** ([view](<" & linkURL & ">))"
-                    end if
-                end if
+						set urlInTitle to text 1 thru colonPos of taskName & " **" & titlePart & "** ([view](<" & linkURL & ">))"
+					else
+						set urlInTitle to "**" & taskName & "** ([view](<" & linkURL & ">))"
+					end if
+				end if
 
 				if (count of noteLines) > 1 then
 					set noteLines to items 2 thru -1 of noteLines
@@ -107,27 +113,27 @@ on padNumber(n)
 end padNumber
 
 on trimEmptyLines(noteLines)
-    -- Remove empty lines from the beginning
-    repeat while (noteLines is not {} and first item of noteLines is "")
-        if (count of noteLines) > 1 then
-            set noteLines to items 2 thru -1 of noteLines
-        else
-            set noteLines to {}
-            exit repeat
-        end if
-    end repeat
-    
-    -- Remove empty lines from the end
-    repeat while (noteLines is not {} and last item of noteLines is "")
-        if (count of noteLines) > 1 then
-            set noteLines to items 1 thru -2 of noteLines
-        else
-            set noteLines to {}
-            exit repeat
-        end if
-    end repeat
-    
-    return noteLines
+	-- Remove empty lines from the beginning
+	repeat while (noteLines is not {} and first item of noteLines is "")
+		if (count of noteLines) > 1 then
+			set noteLines to items 2 thru -1 of noteLines
+		else
+			set noteLines to {}
+			exit repeat
+		end if
+	end repeat
+
+	-- Remove empty lines from the end
+	repeat while (noteLines is not {} and last item of noteLines is "")
+		if (count of noteLines) > 1 then
+			set noteLines to items 1 thru -2 of noteLines
+		else
+			set noteLines to {}
+			exit repeat
+		end if
+	end repeat
+
+	return noteLines
 end trimEmptyLines
 
 on surroundURLsWithBrackets(inputText)
