@@ -72,6 +72,9 @@ else
     open "things:///add?title=$(echo -n "$task_title" | jq -sRr @uri)&notes=$(echo -n "$task_notes" | jq -sRr @uri)&when=today&tags=Streamable,Work%20Task&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token"
 fi
 
+echo "Added task"
+osascript -e 'tell application "Safari" to activate'
+
 if [[ "$url" == *"/pull/"* ]]; then
     gh pr edit $url --add-reviewer peppy
 else
