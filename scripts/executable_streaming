@@ -42,8 +42,6 @@ echo "Starting streaming apps..."
 
 open /Applications/Audio\ Hijack.app
 open /Applications/Safari.app
-# open /System/Applications/Music.app
-# sleep 1
 
 sleep 2
 
@@ -54,6 +52,12 @@ skhd -k "cmd+shift-h"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; slee
 echo "Deleting chat history..."
 
 skhd -k "cmd+shift-space"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
+
+echo "Deleting rider scratch buffers..."
+
+for dir in (find "/Users/dean/Library/Application Support/JetBrains" -type d -name "scratches" -path "*/Rider*/scratches")
+        rm -r "$dir"
+end
 
 echo "Starting now playing updates..."
 
