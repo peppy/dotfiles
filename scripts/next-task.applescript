@@ -10,7 +10,12 @@ tell application "Things3"
 			end try
 
 			if todoTags contains "Streamable" then
-				set output to name of todo
+                if project of todo is not missing value
+                    set output to name of project of todo & ": " & name of todo
+                else
+                    set output to name of todo
+                end if
+
 				exit repeat
 			end if
 		end if
