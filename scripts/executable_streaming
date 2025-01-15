@@ -47,7 +47,7 @@ sleep 2
 
 echo "Deleting clipboard history..."
 
-skhd -k "cmd+shift-h"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
+skhd -k "ctrl+alt+shift-v"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
 
 echo "Deleting chat history..."
 

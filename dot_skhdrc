@@ -60,7 +60,6 @@ meh - j : yabai -m window --focus south
 meh - k : yabai -m window --focus north
 meh - l : yabai -m window --focus east || yabai -m window --focus stack.next || yabai -m window --focus stack.first
 
-meh - v : yabai -m space --focus 4;
 meh - m : yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "Music") | .id');
 meh - e : yabai -m space --focus 5; yabai -m window --focus (yabai -m query --windows |jq '.[] | select (.app  == "Superhuman") | .id');
 
