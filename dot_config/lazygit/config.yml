@@ -8,17 +8,12 @@ gui:
     scrollPastBottom: false # enable scrolling past the bottom
     commitLength:
         show: true
-    mouseEvents: true
+    mouseEvents: false
     skipDiscardChangeWarning: true
     showFileTree: true
     # showCommandLog: true
-    # showIcons: true
+    showIcons: false
     showBottomLine: false
-    theme:
-        selectedLineBgColor:
-            - '#413660'
-            # selectedRangeBgColor:
-            #   - '#413660'
 refresher:
     refreshInterval: 60
 git:
