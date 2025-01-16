@@ -13,15 +13,13 @@
 # @raycast.authorURL https://raycast.com/ppy
 
 tell application "Things3"
-	set todayTasks to to dos of list "Today" whose (tag names of it contains "Work Task")
-
 	set todayTasks to {}
 
 	-- Get tasks directly in the "Today" list
 	set allTodayTasks to to dos of list "Today"
 	repeat with aTask in allTodayTasks
 		set taskTags to tag names of aTask
-		if taskTags contains "Work Task" then
+		if taskTags contains "Task" or taskTags contains "Internal" then
 			set end of todayTasks to aTask
 		end if
 	end repeat
@@ -36,7 +34,7 @@ tell application "Things3"
 				set dueDate to activation date of aTask
 				if dueDate is not missing value and dueDate = today then
 					set taskTags to tag names of aTask
-					if taskTags contains "Work Task" then
+					if taskTags contains "Task" or taskTags contains "Internal" then
 						set end of todayTasks to aTask
 					end if
 				end if
