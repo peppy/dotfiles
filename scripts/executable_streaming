@@ -64,6 +64,6 @@ echo "Starting now playing updates..."
 update-now-playing
 
 echo "Setting Things filter..."
-open "things:///show?id=today&filter=Streamable"
+open "things:///show?id=today&filter=Task"
 
 open /Applications/OBS.app

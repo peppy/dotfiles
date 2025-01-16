@@ -67,9 +67,9 @@ EOF
 auth_token=$(security find-generic-password -s "things-url-auth-token" -w)
 
 if [ "$task_id" != "no" ]; then
-    open "things:///update?id=$task_id&when=today&tags=Streamable,Work%20Task&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token&completed=false"
+    open "things:///update?id=$task_id&when=today&tags=Task&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token&completed=false"
 else
-    open "things:///add?title=$(echo -n "$task_title" | jq -sRr @uri)&notes=$(echo -n "$task_notes" | jq -sRr @uri)&when=today&tags=Streamable,Work%20Task&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token"
+    open "things:///add?title=$(echo -n "$task_title" | jq -sRr @uri)&notes=$(echo -n "$task_notes" | jq -sRr @uri)&when=today&tags=Task&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token"
 fi
 
 echo "Added task"
