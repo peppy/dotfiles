@@ -73,6 +73,19 @@ else
 fi
 
 echo "Added task"
+
+# select the newly added task
+osascript <<EOF
+tell application "System Events"
+    -- Activate Things
+    tell application "Things3" to activate
+
+    key code 53  -- escape
+    delay 0.01
+    key code 125 -- down arrow
+end tell
+EOF
+
 osascript -e 'tell application "Safari" to activate'
 
 if [[ "$url" == *"/pull/"* ]]; then
