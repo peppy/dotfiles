@@ -33,6 +33,7 @@ pkill -x "Bear"
 pkill -x "Keychain Access"
 pkill -x "kube"
 pkill -x "IINA"
+pkill -x "Things3"
 
 echo "Emptying trash..."
 
