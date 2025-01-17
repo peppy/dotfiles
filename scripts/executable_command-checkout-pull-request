@@ -86,7 +86,7 @@ tell application "System Events"
 end tell
 EOF
 
-osascript -e 'tell application "Safari" to activate'
+# osascript -e 'tell application "Safari" to activate'
 
 if [[ "$url" == *"/pull/"* ]]; then
     gh pr edit $url --add-reviewer peppy
