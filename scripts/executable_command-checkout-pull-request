@@ -79,6 +79,9 @@ osascript <<EOF
 tell application "System Events"
     -- Activate Things
     tell application "Things3" to activate
+    repeat until application "Things3" is frontmost
+        delay 0.01
+    end repeat
 
     key code 53  -- escape
     delay 0.01
