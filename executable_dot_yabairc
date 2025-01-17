@@ -13,7 +13,6 @@ yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        1.0
 yabai -m config split_ratio                  0.50
 yabai -m config auto_balance                 off
-yabai -m config window_animation_duration    0.0
 
 # general space settings
 yabai -m config layout                       bsp
@@ -22,7 +21,7 @@ yabai -m config bottom_padding               8
 yabai -m config left_padding                 8
 yabai -m config right_padding                8
 yabai -m config window_gap                   8
-yabai -m config external_bar main:0:0
+yabai -m config external_bar main:0:60
 
 # space 1: terminals
 yabai -m rule --add app="iTerm2" space=^1
@@ -37,32 +36,28 @@ yabai -m rule --add app="PhpStorm.*" title="Preferences" space=^2 manage=off
 # space 3: web
 yabai -m rule --add app="Safari" space=^3
 
-# space 4: VMs
-yabai -m space 4 --layout stack
-yabai -m rule --add app="Jump Desktop" space=^4
-yabai -m rule --add app="Jump Desktop" title="Jump Desktop" space=^4 manage=off
-yabai -m rule --add app="Parallels Desktop" title="Control Center" space=^4 manage=off
-yabai -m rule --add app="Parallels Desktop" space=^4
-
 # space 5: stack
-yabai -m space 5 --layout stack
-yabai -m rule --add app="Superhuman" space=^5
-yabai -m rule --add app="DataGrip" space=^5
-yabai -m rule --add app="Pixelmator*" space=^5
+yabai -m space 4 --layout stack
+yabai -m space 4 --padding abs:8:8:8:8
+yabai -m rule --add app="Superhuman" space=^4
+yabai -m rule --add app="DataGrip" space=^4
+yabai -m rule --add app="Pixelmator*" space=^4
+yabai -m rule --add app="Jump Desktop" space=^5
+yabai -m rule --add app="Parsec" space=^5
 
 # display 2: off-stream and out of the way
-yabai -m rule --add app="Discord" space=^4
-yabai -m rule --add app="Discord PTB" space=^4
-yabai -m rule --add app="Music" space=^4
-yabai -m rule --add app="OBS" space=^4
-yabai -m rule --add app="Podcasts" space=^4
+yabai -m rule --add app="Discord" display=2
+yabai -m rule --add app="Discord PTB" display=2
+yabai -m rule --add app="Music" display=2
+yabai -m rule --add app="OBS" display=2
+yabai -m rule --add app="Audio Hijack" display=2
+yabai -m rule --add app="Hyper*" display=2
+yabai -m rule --add app="Podcasts" display=2
 
 # things which create floating children
 yabai -m rule --add title="JetBrains Toolbox" manage=off mouse_follows_focus=off
 yabai -m rule --add app="System Settings" manage=off
 yabai -m rule --add app="Stats" manage=off mouse_follows_focus=off
 yabai -m rule --add app="iStat Menus" manage=off mouse_follows_focus=off
-yabai -m rule --add app="Things" grid=10:3:1:1:1:8 mouse_follows_focus=on sticky=on
-yabai -m rule --add app="choose" manage=off mouse_follows_focus=off
 yabai -m rule --add app="CleanShot X" manage=off mouse_follows_focus=off
 
