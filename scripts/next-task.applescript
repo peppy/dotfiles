@@ -5,8 +5,10 @@ tell application "Things3"
   repeat with todo in selected
     if project of todo is not missing value then
       set output to name of todo & linefeed & name of area of project of todo & " – " & name of project of todo
-    else
+    else if area of todo is not missing value then
       set output to name of todo & linefeed & name of area of todo
+    else
+      set output to name of todo & linefeed & "✨"
     end if
   end repeat
 
