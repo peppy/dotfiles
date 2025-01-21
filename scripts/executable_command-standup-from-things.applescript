@@ -58,6 +58,8 @@ tell application "Things3"
 
 	set finalOutput to "## " & my formatDate(taskDate) & linefeed & linefeed
 
+	set todayTasks to my sortTasksByName(todayTasks)
+
 	repeat with t in todayTasks
 		set taskName to name of t
 		set taskNotes to notes of t
@@ -174,3 +176,41 @@ on surroundURLsWithBrackets(inputText)
 	set modifiedText to do shell script "echo " & quoted form of inputText & " | sed -E 's|(" & urlPattern & ")|<\\1>|g'"
 	return modifiedText
 end surroundURLsWithBrackets
+
+on sortTasksByName(taskList)
+	set nameAndRefList to {}
+	repeat with aTask in taskList
+		set taskName to name of aTask
+		set end of nameAndRefList to {taskName, aTask}
+	end repeat
+
+	set sortedList to my quickSort(nameAndRefList)
+
+	set sortedTasks to {}
+	repeat with i in sortedList
+		set end of sortedTasks to i's second item
+	end repeat
+
+	return sortedTasks
+end sortTasksByName
+
+on quickSort(theList)
+	if length of theList ≤ 1 then
+		return theList
+	end if
+
+	set pivot to first item of theList
+	set lessList to {}
+	set greaterList to {}
+
+	repeat with i from 2 to length of theList
+		set currentItem to item i of theList
+		if (first item of currentItem) comes before (first item of pivot) then
+			set end of lessList to currentItem
+		else
+			set end of greaterList to currentItem
+		end if
+	end repeat
+
+	return (my quickSort(lessList)) & {pivot} & (my quickSort(greaterList))
+end quickSort
