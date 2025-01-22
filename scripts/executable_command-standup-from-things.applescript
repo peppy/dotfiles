@@ -108,9 +108,18 @@ tell application "Things3"
 			end if
 
 			set noteLines to my trimEmptyLines(noteLines)
+			set inCodeBlock to false
 			repeat with l in noteLines
-				set formattedLine to my surroundURLsWithBrackets(l)
-				set formattedNotes to formattedNotes & "> " & formattedLine & linefeed
+				if l starts with "```" then
+					set inCodeBlock to not inCodeBlock
+					set formattedNotes to formattedNotes & l & linefeed
+				else
+					set formattedLine to my surroundURLsWithBrackets(l)
+					if not inCodeBlock then
+						set formattedLine to "> " & formattedLine
+					end if
+					set formattedNotes to formattedNotes & formattedLine & linefeed
+				end if
 			end repeat
 		end if
 
