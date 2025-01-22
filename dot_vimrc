@@ -18,10 +18,6 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 
-" fix out of memory when adding brackets to start of long markdown file
-" (https://github.com/vim/vim/issues/2049)
-set mmp=500000
-
 set so=4
 
 filetype off
@@ -29,10 +25,6 @@ syntax on
 
 let mapleader = "'"
 
-" set termguicolors
-
-set t_Co=256
-set background=dark
 set updatetime=500
 
 " Add Vundle to runtime path
@@ -72,8 +64,18 @@ Plugin 'tpope/vim-obsession'
 Plugin 'mg979/vim-visual-multi'
 call vundle#end()
 
+let g:gruvbox_contrast_light = 'hard'  " Makes light mode more readable
+let g:gruvbox_contrast_dark = 'medium'
+if system("defaults read -g AppleInterfaceStyle 2>/dev/null") =~ '^Dark'
+    set background=dark
+else
+    set background=light
+endif
+
 " colorscheme Tomorrow-Night
 colorscheme gruvbox
+
+
 
 filetype plugin indent on
 
