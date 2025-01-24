@@ -23,6 +23,8 @@ set so=4
 filetype off
 syntax on
 
+set mouse=""
+
 let mapleader = "'"
 
 set updatetime=500
