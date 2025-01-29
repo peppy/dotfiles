@@ -1,5 +1,5 @@
 #!/bin/bash
- 
+
 pkill nowplaying-cli
-cd "/Users/dean/Library/Application Support/Übersicht/widgets/UeberPlayer.widget/lib"; 
-nohup ./nowplaying-cli &
+cd "/Users/dean/Library/Application Support/Übersicht/widgets/UeberPpyer.widget/lib";
+nohup ./nowplaying-cli >/dev/null 2>&1 &
