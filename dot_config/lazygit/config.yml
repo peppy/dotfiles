@@ -1,6 +1,7 @@
 reporting: "off"
 startuppopupversion: 1
 disableStartupPopups: true
+promptToReturnFromSubprocess: false
 notARepository: 'skip'
 gui:
     # stuff relating to the UI
