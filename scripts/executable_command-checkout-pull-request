@@ -10,6 +10,7 @@
 # @raycast.author ppy
 # @raycast.authorURL https://raycast.com/ppy
 # @raycast.packageName Safari GitHub actions
+# @raycast.argument1 { "type": "dropdown", "placeholder": "Checkout", "data": [{"title": "Checkout", "value": "1"},{"title": "Just task", "value": "2"}] }
 
 url=`safari-ctl`
 
@@ -91,15 +92,17 @@ EOF
 
 # osascript -e 'tell application "Safari" to activate'
 
-if [[ "$url" == *"/pull/"* ]]; then
-    gh pr edit $url --add-reviewer peppy
-else
-    gh issue edit $url --add-assignee "@me"
-fi
-
 # osascript -e 'tell application "Safari" to do JavaScript "location.reload();" in document 1'
 
-gh pr checkout $url
+if [ "$1" -eq 1 ]; then
+    gh pr checkout $url
 
-echo "Checked out #$number ($title)"
-# osascript -e 'tell application "Safari" to do JavaScript "window.scrollTo(0, document.body.scrollHeight);" in document 1'
+    echo "Checked out #$number ($title)"
+    # osascript -e 'tell application "Safari" to do JavaScript "window.scrollTo(0, document.body.scrollHeight);" in document 1'
+    #
+    if [[ "$url" == *"/pull/"* ]]; then
+        gh pr edit $url --add-reviewer peppy
+    else
+        gh issue edit $url --add-assignee "@me"
+    fi
+fi
