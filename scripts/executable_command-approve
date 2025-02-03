@@ -14,6 +14,8 @@
 # @raycast.argument1 { "type": "dropdown", "placeholder": "Approve", "data": [{"title": "Approve", "value": "1"},{"title": "Automerge", "value": "2"},{"title": "Force merge", "value": "3"}] }
 
 url=`safari-ctl`
+repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
+owner=`echo $url | sed -e 's,https://github.com/\([^/]*\)/[^/^#]*.*,\1,g'`
 
 cd ~/Projects/$repo/ > /dev/null 2>&1
 
@@ -23,9 +25,6 @@ if [[ -z "$title" ]]; then
   echo "Current tab is not a pull request!"
   exit 1
 fi
-
-repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
-owner=`echo $url | sed -e 's,https://github.com/\([^/]*\)/[^/^#]*.*,\1,g'`
 
 username="peppy"
 reviews=$(gh api repos/$owner/$repo/pulls/$number/reviews)
