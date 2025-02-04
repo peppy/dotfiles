@@ -8,6 +8,9 @@
    https://github.com/peppy/nowplaying-cli
 
    The binary is included alongside this widget for convenience.
+
+   Note that this whole implementation using the system now playing API.
+   This means it is not limited to apple music. It also work with airplay.
  */
 
 import { styled, run } from "uebersicht";
@@ -16,23 +19,15 @@ const _version = '1.4.0';
 
 export const refreshFrequency = 1000;
 
-/* CUSTOMIZATION (mess around here!)
-You may need to refresh the widget after changing these settings
-For more details about these settings: please visit https://github.com/aCluelessDanny/UeberPlayer#settings */
-
 const options = {
-  size: "small",                  // -> big (default) | medium | small | mini
   verticalPosition: "bottom",      // -> top (default) | center | bottom | "<number>" | "-<number>"
   horizontalPosition: "right",   // -> left (default) | center | right | "<number>" | "-<number>"
   alwaysShow: 0,                // -> 0 (default) | 1 | 2
   adaptiveColors: true,         // -> true (default) | false
   minContrast: 2.6,             // -> 2.6 (default) | number
   dualProgressBar: false,       // -> true | false (default)
-  miniArtwork: false,           // -> true | false (default)
   cacheMaxDays: 15,             // -> 15 (default) | <number>
 }
-
-/* ROOT STYLING */
 
 export const className = `
   pointer-events: none;
@@ -102,53 +97,6 @@ const Wrapper = styled("div")`
 
 `;
 
-const miniWrapperPos = ({ horizontal }) => {
-  switch (horizontal) {
-    case "left": return `text-align: left;`;
-    case "center": return `text-align: center;`;
-    case "right": return `text-align: right;`;
-    default: return horizontal.startsWith("-") ? `text-align: right;` : `text-align: left;`;
-  }
-}
-
-const MiniWrapper = styled(Wrapper)`
-  border-radius: 10px;
-  overflow: visible;
-  box-shadow: none;
-  background: transparent;
-  ${miniWrapperPos}
-
-  &::before {
-    display: none;
-  }
-`
-
-const ErrorWrapper = styled('div')`
-  width: 420px;
-  padding: 1em;
-  text-align: center;
-  font-size: .9em;
-
-  * + * {
-    margin-top: .4em;
-  }
-
-  h3 {
-    font-style: italic;
-    color: #ddd;
-  }
-`
-
-const BigPlayer = styled("div")`
-  display: flex;
-  flex-direction: column;
-  width: 240px;
-`;
-
-const MediumPlayer = styled(BigPlayer)`
-  width: 180px;
-`
-
 const SmallPlayer = styled("div")`
   position: relative;
   display: flex;
@@ -156,52 +104,14 @@ const SmallPlayer = styled("div")`
   width: 400px;
 `
 
-const MiniPlayer = styled("div")`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  line-height: 1;
-
-  * {
-    text-shadow: 0px 0px 4px #0004, 0px 2px 12px #0004;
-  }
-`
-
-const MiniInfo = styled("div")`
-  display: flex;
-  align-items: center;
-`
-
-const MiniDetails = styled("div")`
-  flex: 1;
-
-  > * + * {
-    margin-top: .5em;
-  }
-`
-
 const ArtworkWrapper = styled("div")`
   position: relative;
   width: 240px;
   height: 240px;
 
-  &.medium {
-    width: 180px;
-    height: 180px;
-  }
-
   &.small {
     width: 80px;
     height: 80px;
-  }
-
-  &.mini {
-    width: 65px;
-    height: 65px;
-    border-radius: 4px;
-    margin-right: 10px;
-    overflow: hidden;
   }
 
   &::before {
@@ -236,7 +146,6 @@ const Information = styled("div")`
   padding: .5em .75em;
   line-height: 1.3;
   border-radius: 14px;
-  backdrop-filter: ${options.adaptiveColors ? "blur(8px)" : "blur(8px) brightness(90%) contrast(80%) saturate(140%)"};
 
   > p {
     text-align: center;
@@ -416,7 +325,7 @@ export const updateState = ({ type, output, error }, previousState) => {
         songChange: false,
         primaryColor: "#00040000",
         secondaryColor: "#ffffffff",
-        tercaryColor: "#f85d73ff",
+        tercaryColor: "#c49fff",
         artwork: {
           art1: alternate ? art1 : "UeberPpyer.widget/default.png",
           art2: !alternate ? art2 : "UeberPpyer.widget/default.png",
@@ -520,55 +429,6 @@ const ArtworkImage = ({ artwork: { art1, art2, alternate }, wrapperClass }) => (
   </ArtworkWrapper>
 )
 
-// Big player component
-const Big = ({ state, dispatch }) => {
-  const {
-    song: { track, artist, album, elapsed, duration },
-    secondaryColor,
-    tercaryColor,
-    artwork,
-    updateAvailable,
-    updatePending
-  } = state;
-
-  return (
-    <BigPlayer>
-      <ArtworkImage artwork={artwork} wrapperClass='big'/>
-      {updateAvailable && <UpdateNotif dispatch={dispatch} updatePending={updatePending} useBackground/>}
-      <Information>
-        <Progress progressColor={secondaryColor} emptyColor={tercaryColor} percent={elapsed / duration * 100}/>
-        <Track className="small" color={secondaryColor}>{track}</Track>
-        <Artist className="small" color={tercaryColor}>{artist}</Artist>
-        <Album className="small" color={tercaryColor}>{album}</Album>
-      </Information>
-    </BigPlayer>
-  )
-}
-
-// Medium player component
-const Medium = ({ state, dispatch }) => {
-  const {
-    song: { track, artist, elapsed, duration },
-    secondaryColor,
-    tercaryColor,
-    artwork,
-    updateAvailable,
-    updatePending
-  } = state;
-
-  return (
-    <MediumPlayer>
-      <ArtworkImage artwork={artwork} wrapperClass='medium'/>
-      {updateAvailable && <UpdateNotif dispatch={dispatch} updatePending={updatePending} useBackground/>}
-      <Information>
-        <Progress progressColor={secondaryColor} emptyColor={tercaryColor} percent={elapsed / duration * 100}/>
-        <Track color={secondaryColor}>{track}</Track>
-        <Artist color={tercaryColor}>{artist}</Artist>
-      </Information>
-    </MediumPlayer>
-  )
-}
-
 // Small player component
 const Small = ({ state, dispatch }) => {
   const {
@@ -593,32 +453,6 @@ const Small = ({ state, dispatch }) => {
   )
 }
 
-// Mini player component
-const Mini = ({ state, dispatch }) => {
-  const {
-    song: { track, artist, elapsed, duration },
-    primaryColor,
-    secondaryColor,
-    artwork,
-    updateAvailable,
-    updatePending
-  } = state;
-
-  return (
-    <MiniPlayer>
-      <MiniInfo>
-        {options.miniArtwork && <ArtworkImage artwork={artwork} wrapperClass='mini'/>}
-        <MiniDetails>
-          <Track className="mini">{track}</Track>
-          <Artist className="mini">{artist}</Artist>
-        </MiniDetails>
-      </MiniInfo>
-      <Progress className="mini" progressColor={primaryColor} emptyColor={secondaryColor} percent={elapsed / duration * 100}/>
-      {updateAvailable && <UpdateNotif dispatch={dispatch} updatePending={updatePending}/>}
-    </MiniPlayer>
-  )
-}
-
 // Render function
 export const render = (state, dispatch) => {
   const { size, horizontalPosition, verticalPosition, alwaysShow } = options;
@@ -632,29 +466,10 @@ export const render = (state, dispatch) => {
     prepareArtwork(dispatch, song);
   }
 
-  // If Apple Music is playing online music, warn the user that it cannot get information for it
-  if (appleMusicError) {
-    return (
-      <Wrapper show={showWidget} horizontal={horizontalPosition} vertical={verticalPosition}>
-        <ErrorWrapper>
-          <h3>Online Apple Music detected</h3>
-          <p>Unfortunately, the widget is unable to access songs being streamed online through Apple Music.</p>
-          <p>To fix this, please download your music to your library and play it locally from there.</p>
-        </ErrorWrapper>
-      </Wrapper>
-    )
-  }
-
   // Render
-  return (size === "mini") ? (
-    <MiniWrapper show={showWidget} horizontal={horizontalPosition} vertical={verticalPosition}>
-      <Mini state={state} dispatch={dispatch}/>
-    </MiniWrapper>
-  ) : (
+  return (
     <Wrapper show={showWidget} bg={primaryColor} horizontal={horizontalPosition} vertical={verticalPosition}>
-      {size === 'big' && <Big state={state} dispatch={dispatch}/>}
-      {size === 'medium' && <Medium state={state} dispatch={dispatch}/>}
-      {size === 'small' && <Small state={state} dispatch={dispatch}/>}
+      <Small state={state} dispatch={dispatch}/>
     </Wrapper>
   )
 };
