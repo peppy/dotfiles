@@ -43,6 +43,7 @@ yabai -m rule --add app="Superhuman" space=^4
 yabai -m rule --add app="DataGrip" space=^4
 yabai -m rule --add app="Pixelmator*" space=^4
 yabai -m rule --add app="Jump Desktop" space=^4
+yabai -m rule --add app="Parsec" space=^4
 
 # display 2: off-stream and out of the way
 yabai -m rule --add app="Discord" display=2
