@@ -67,6 +67,9 @@ echo "Starting now playing updates..."
 
 update-now-playing
 
+echo "Switch to space 1"
+skhd -k "cmd+ctrl+alt+shift-s"
+
 echo "Setting Things filter..."
 open "things:///show?id=today&filter=Task"
 
