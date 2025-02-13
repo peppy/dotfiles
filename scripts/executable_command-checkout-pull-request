@@ -84,8 +84,9 @@ tell application "System Events"
         delay 0.01
     end repeat
 
+    delay 0.02
     key code 53  -- escape
-    delay 0.01
+    delay 0.02
     key code 125 -- down arrow
 end tell
 EOF
