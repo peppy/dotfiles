@@ -55,7 +55,7 @@ echo "Deleting chat history..."
 skhd -k "cmd+shift-space"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
 
 echo "Empty datagrip scratch buffer"
-rm /Users/dean/Projects/database/scratch.sql
+truncate -s 0 /Users/dean/Projects/database/scratch.sql
 
 echo "Deleting rider scratch buffers..."
 
