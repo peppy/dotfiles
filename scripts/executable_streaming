@@ -54,6 +54,13 @@ echo "Deleting chat history..."
 
 skhd -k "cmd+shift-space"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
 
+echo "Deleting dictionary history..."
+
+skhd -k "cmd-space"; sleep 0.3;
+osascript -e 'tell application "System Events" to keystroke "dict"'
+skhd -k "return"; skhd skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1;
+skhd -k "escape"; sleep 0.3; skhd -k "escape"; sleep 0.3; skhd -k "escape"
+
 echo "Empty datagrip scratch buffer"
 truncate -s 0 /Users/dean/Projects/database/scratch.sql
 
