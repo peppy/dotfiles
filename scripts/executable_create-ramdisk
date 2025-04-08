@@ -1,11 +1,26 @@
-#!/usr/local/bin/fish
+#!/bin/bash
 
-set mountPoint (hdiutil attach -nomount ram://16384000 | tr -d '[:space:]');
-sudo diskutil partitionDisk $mountPoint 1 GPTFormat APFS 'ramdisk' '100%';
+# Creates an 8 gb ramdisk to optimise .NET unit tests.
+# Pass -f to force recreation.
+
+force=false
+while getopts ":f" opt; do [ "$opt" = "f" ] && force=true; done
+
+disk_id=$(diskutil list | grep 'ramdisk' | awk '{print $NF}')
+if [ -n "$disk_id" ]; then
+    if [ "$force" = true ]; then
+        diskutil unmount /Volumes/ramdisk
+        hdiutil detach "$disk_id"
+    else
+        exit 1
+    fi
+fi
+
+diskutil erasevolume APFS 'ramdisk' $(hdiutil attach -nomount ram://16384000 | tr -d '[:space:]')
 
 mkdir /Volumes/ramdisk/of-test-headless
-cd /private/var/folders/qt/mf5nyxrn07s0_mwpb_t8bl5h0000gn/T/
-rm -r of-test-headless
+cd /var/folders/6g/_6_8h1bd0x3bf1th19xyw3480000gn/T/
+rm -rf of-test-headless
 ln -s /Volumes/ramdisk/of-test-headless of-test-headless
 
 
