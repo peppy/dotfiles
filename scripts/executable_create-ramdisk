@@ -19,8 +19,7 @@ fi
 diskutil erasevolume APFS 'ramdisk' $(hdiutil attach -nomount ram://16384000 | tr -d '[:space:]')
 
 mkdir /Volumes/ramdisk/of-test-headless
-cd /var/folders/6g/_6_8h1bd0x3bf1th19xyw3480000gn/T/
-rm -rf of-test-headless
-ln -s /Volumes/ramdisk/of-test-headless of-test-headless
+rm -rf ${TMPDIR}of-test-headless
+ln -s /Volumes/ramdisk/of-test-headless ${TMPDIR}of-test-headless
 
 
