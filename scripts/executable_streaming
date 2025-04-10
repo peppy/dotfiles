@@ -44,7 +44,7 @@ echo "Starting streaming apps..."
 open /Applications/Audio\ Hijack.app
 open /Applications/Safari.app
 
-sleep 2
+sleep 5
 
 echo "Deleting clipboard history..."
 
