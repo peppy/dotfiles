@@ -48,24 +48,24 @@ meh - j : yabai -m window --focus south
 meh - k : yabai -m window --focus north
 meh - l : yabai -m window --focus east || yabai -m window --focus stack.next || yabai -m window --focus stack.first
 
-# Prepare for iPad remoting (alt-,)
-alt - 0x2B : pkill obs; \
-    pkill Music; \
-    pkill KeyCastr; \
-    displayplacer "id:0000F0F0-0000-0F0B-2C54-FD9500000000 res:1728x1296 hz:60 color_depth:4 scaling:on origin:(0,0) degree:0" "id:EF38BA93-EB3E-4962-EFEE-4959024A493C res:2560x1440 hz:144 color_depth:8 scaling:off origin:(0,-1440) degree:0" "id:F8DD9C2E-C468-7692-DA3C-BBF2E2D8324F res:1080x2560 hz:60 color_depth:8 scaling:off origin:(2560,-2065) degree:90"; \
-    sleep 1; \
-    yabai -m config external_bar main:0:0; \
-    skhd -k "escape"; \
-    skhd -k "cmd+alt-k";
+# # Prepare for iPad remoting (alt-,)
+# alt - 0x2B : pkill obs; \
+#     pkill Music; \
+#     pkill KeyCastr; \
+#     displayplacer "id:0000F0F0-0000-0F0B-2C54-FD9500000000 res:1728x1296 hz:60 color_depth:4 scaling:on origin:(0,0) degree:0" "id:EF38BA93-EB3E-4962-EFEE-4959024A493C res:2560x1440 hz:144 color_depth:8 scaling:off origin:(0,-1440) degree:0" "id:F8DD9C2E-C468-7692-DA3C-BBF2E2D8324F res:1080x2560 hz:60 color_depth:8 scaling:off origin:(2560,-2065) degree:90"; \
+#     sleep 1; \
+#     yabai -m config external_bar main:0:0; \
+#     skhd -k "escape"; \
+#     skhd -k "cmd+alt-k";
 
-# Exit iPad remoting (alt-.)
-alt - 0x2F : displayplacer "id:EF38BA93-EB3E-4962-EFEE-4959024A493C res:2560x1440 hz:144 color_depth:8 scaling:off origin:(0,0) degree:0" "id:F8DD9C2E-C468-7692-DA3C-BBF2E2D8324F res:1080x2560 hz:60 color_depth:8 scaling:off origin:(2560,-625) degree:90" "id:0000F0F0-0000-0F0B-2C54-FD9500000000 res:1728x1296 hz:60 color_depth:4 scaling:on origin:(0,1440) degree:0"; \
-    sleep 1; \
-    yabai -m config external_bar main:0:60; \
-    skhd -k "escape"; \
-    skhd -k "cmd+alt-k"; \
-    open /Applications/KeyCastr.app; \
-    open /System/Applications/Music.app;
+# # Exit iPad remoting (alt-.)
+# alt - 0x2F : displayplacer "id:EF38BA93-EB3E-4962-EFEE-4959024A493C res:2560x1440 hz:144 color_depth:8 scaling:off origin:(0,0) degree:0" "id:F8DD9C2E-C468-7692-DA3C-BBF2E2D8324F res:1080x2560 hz:60 color_depth:8 scaling:off origin:(2560,-625) degree:90" "id:0000F0F0-0000-0F0B-2C54-FD9500000000 res:1728x1296 hz:60 color_depth:4 scaling:on origin:(0,1440) degree:0"; \
+#     sleep 1; \
+#     yabai -m config external_bar main:0:60; \
+#     skhd -k "escape"; \
+#     skhd -k "cmd+alt-k"; \
+#     open /Applications/KeyCastr.app; \
+#     open /System/Applications/Music.app;
 
 # block macOS opening mail client
 # cmd - i : ls
