@@ -19,7 +19,7 @@ tell application "Things3"
 	set allTodayTasks to to dos of list "Today"
 	repeat with aTask in allTodayTasks
 		set taskTags to tag names of aTask
-		if taskTags contains "Task" or taskTags contains "Internal" then
+		if taskTags contains "Standup" then
 			set end of todayTasks to aTask
 		end if
 	end repeat
@@ -34,7 +34,7 @@ tell application "Things3"
 				set dueDate to activation date of aTask
 				if dueDate is not missing value and dueDate = today then
 					set taskTags to tag names of aTask
-					if taskTags contains "Task" or taskTags contains "Internal" then
+					if taskTags contains "Standup" then
 						set end of todayTasks to aTask
 					end if
 				end if
