@@ -50,13 +50,12 @@ tell application "Things3"
 		end if
 	end repeat
 
-	if firstCompletedTask is not missing value then
-		set taskDate to completion date of firstCompletedTask
-	else
-		set taskDate to current date
-	end if
+    set currentDate to current date
+    if hours of currentDate < 12 then
+        set currentDate to currentDate - (1 * days)
+    end if
 
-	set finalOutput to "## " & my formatDate(taskDate) & linefeed & linefeed
+	set finalOutput to "## " & my formatDate(currentDate) & linefeed & linefeed
 
 	set todayTasks to my sortTasksByName(todayTasks)
 
