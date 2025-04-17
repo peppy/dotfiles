@@ -93,8 +93,12 @@ tell application "System Events"
         delay 0.01
     end repeat
 
-    delay 0.02
+    delay 0.05
     key code 53  -- escape
+    delay 0.02
+    key code 53  -- escape (in case raycast is still visible)
+    delay 0.02
+    key code 125 -- down arrow
     delay 0.02
     key code 125 -- down arrow
 end tell
