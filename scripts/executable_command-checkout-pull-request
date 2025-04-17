@@ -67,10 +67,19 @@ EOF
 
 auth_token=$(security find-generic-password -s "things-url-auth-token" -w)
 
-if [ "$task_id" != "no" ]; then
-    open "things:///update?id=$task_id&when=today&tags=Task&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token&completed=false"
+focus=$(get-current-focus)
+obs_running=$(pgrep -x OBS)
+
+if [ -n "$obs_running" ]; then
+    tag_param="&tags=Stream"
 else
-    open "things:///add?title=$(echo -n "$task_title" | jq -sRr @uri)&notes=$(echo -n "$task_notes" | jq -sRr @uri)&when=today&tags=Task&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token"
+    tag_param=""
+fi
+
+if [ "$task_id" != "no" ]; then
+    open "things:///update?id=$task_id&when=today$tag_param&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token&completed=false"
+else
+    open "things:///add?title=$(echo -n "$task_title" | jq -sRr @uri)&notes=$(echo -n "$task_notes" | jq -sRr @uri)&when=today$tag_param&list-id=CvRfq3p4a5eY3u3Wd8uwQ5&auth-token=$auth_token"
 fi
 
 echo "Added task"
