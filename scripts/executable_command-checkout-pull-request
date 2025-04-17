@@ -26,7 +26,7 @@ if [[ "$url" == *"/pull/"* ]]; then
         current_time=$(date +%s)
         time_diff=$((current_time - pr_time))
 
-        if [ $time_diff -le 7200 ]; then
+        if [ $time_diff -le 64000 ]; then
           task_title="$title"
         else
           task_title="Fixup: $title"
