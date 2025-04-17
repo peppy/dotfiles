@@ -78,6 +78,6 @@ echo "Switch to space 1"
 skhd -k "cmd+ctrl+alt+shift-s"
 
 echo "Setting Things filter..."
-open "things:///show?id=today&filter=Task"
+open "things:///show?id=today&filter=Stream"
 
 open /Applications/OBS.app
