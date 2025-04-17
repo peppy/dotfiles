@@ -107,8 +107,11 @@ tell application "Things3"
 			end if
 
 			set noteLines to my trimEmptyLines(noteLines)
+
 			set inCodeBlock to false
 			repeat with l in noteLines
+
+			    set l to my normaliseLineEndings(l)
 				if l starts with "```" then
 					set inCodeBlock to not inCodeBlock
 					set formattedNotes to formattedNotes & l & linefeed
@@ -154,6 +157,19 @@ on padNumber(n)
 		return n as string
 	end if
 end padNumber
+
+on normaliseLineEndings(theText)
+	set tempText to ""
+	repeat with i from 1 to (count theText)
+		set thisChar to character i of theText
+		if thisChar is " " or thisChar is " " then -- U+2028 or U+2029
+			set tempText to tempText & return
+		else
+			set tempText to tempText & thisChar
+		end if
+	end repeat
+	return tempText
+end normaliseLineEndings
 
 on trimEmptyLines(noteLines)
 	-- Remove empty lines from the beginning
