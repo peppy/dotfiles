@@ -16,4 +16,4 @@ for o in "$@"; do
   fi
 done
 
-open -na "/Users/dean/Applications/DataGrip.app/Contents/MacOS/datagrip" $wait --args "${intellij_args[@]}"
+open -na "/Users/dean/Applications/PhpStorm.app/Contents/MacOS/phpstorm" $wait --args "${intellij_args[@]}"
