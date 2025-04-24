@@ -1,0 +1,4 @@
+#!/bin/bash
+
+kubectl --context osu-sfo2 -n osu-queue-score-statistics exec -it $(kubectl --context osu-sfo2 -n osu-queue-score-statistics get pods -l app.kubernetes.io/instance=osu-queue-score-statistics-private -o jsonpath='{.items[0].metadata.name}') -- bash
+
