@@ -1,0 +1,36 @@
+#!/bin/bash
+
+git checkout release
+
+read -p "Tag of release to hotfix from: " tag
+check reset --hard $tag
+
+git show --stat
+
+SINCE_DATE=$(git log -1 --format=%cI $tag)
+gh pr list --state merged --search "merged:>=$SINCE_DATE" --limit 100
+
+echo ""
+
+applied_ids=""
+
+while true; do
+    read -p "Pull Request ID (empty to quit): " id
+    if [[ -z "$id" ]]; then
+        echo "Done."
+        break
+    fi
+    echo "Processing ID: $id"
+    gh pr view $id --json commits | jq -r '.commits[].oid' | xargs git cherry-pick
+
+    if [[ -z "$applied_ids" ]]; then
+        applied_ids="$id"
+    else
+        applied_ids="$applied_ids,$id"
+    fi
+done
+
+
+echo ""
+echo "Applied pull requests:"
+echo "$applied_ids"
