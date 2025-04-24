@@ -1,0 +1,11 @@
+#!/bin/bash
+
+jq -r \
+        --arg CURRENT_MODE "$(
+        jq -r \
+                        '.data[0].storeAssertionRecords[0].assertionDetails.assertionDetailsModeIdentifier' \
+                                    ~/Library/DoNotDisturb/DB/Assertions.json
+            )" \
+                    '.data[0].modeConfigurations[$CURRENT_MODE].mode.name // empty' \
+                        ~/Library/DoNotDisturb/DB/ModeConfigurations.json
+
