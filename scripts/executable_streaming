@@ -50,6 +50,17 @@ echo "Deleting clipboard history..."
 
 skhd -k "ctrl+alt+shift-v"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
 
+echo "Deleting cleanshot history..."
+
+skhd -k "ctrl+alt+shift-x"
+sleep 0.2
+for i in (seq 1 10)
+    skhd -k "backspace"
+    sleep 0.05
+end
+sleep 0.5
+skhd -k "escape"
+
 echo "Deleting chat history..."
 
 skhd -k "cmd+shift-space"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
