@@ -1,0 +1,3 @@
+#!/bin/bash
+
+kubectl --context osu-sfo2 -n osu-web exec -it $(kubectl --context osu-sfo2 -n osu-web get pods --selector=app.kubernetes.io/name=osu-web-octane -o jsonpath='{.items[0].metadata.name}') -- /bin/bash
