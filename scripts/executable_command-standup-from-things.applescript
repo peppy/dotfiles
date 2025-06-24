@@ -71,17 +71,15 @@ tell application "Things3"
 
 			set linkURL to ""
 
-			if firstLine contains "://" then
-				if firstLine starts with "[" and firstLine contains "](" and firstLine ends with ")" then
-					set startBracket to offset of "[" in firstLine
-					set endBracket to offset of "]" in firstLine
-					set startParen to offset of "(" in firstLine
-					set endParen to offset of ")" in firstLine
-					set linkURL to text (startParen + 1) thru (endParen - 1) of firstLine
-				else
-					set linkURL to firstLine
-				end if
-			end if
+            if firstLine starts with "[" and firstLine contains "](" and firstLine ends with ")" then
+                set startBracket to offset of "[" in firstLine
+                set endBracket to offset of "]" in firstLine
+                set startParen to offset of "(" in firstLine
+                set endParen to offset of ")" in firstLine
+                set linkURL to text (startParen + 1) thru (endParen - 1) of firstLine
+            else if firstLine starts with "http" and firstLine does not contain " " then
+                set linkURL to firstLine
+            end if
 
 			if linkURL is not "" then
 				if linkURL contains "https" then
