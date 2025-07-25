@@ -1,13 +1,21 @@
-#! /bin/bash
+#!/bin/bash
 
-tag=$(date +%Y.%-m%d.0);
-git checkout -f master;
-git pull upstream master;
+read -p "enter optional tag suffix (leave empty for none): " suffix
+
+git checkout -f master
+git pull upstream master
 
 i=0
-until git tag $tag; do
-  ((i=i+1))
-  tag=$(date +%Y.%-m%d.$i);
+while true; do
+  tag=$(date +%Y.%-m%d.$i)
+  [[ -n "$suffix" ]] && tag="$tag-$suffix"
+  if git tag "$tag"; then
+    break
+  fi
+  ((i++))
 done
 
-git push upstream $tag
+read -p "ready to push $tag (enter to proceed)"
+
+git push upstream "$tag"
+
