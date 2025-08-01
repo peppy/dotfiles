@@ -1,0 +1,17 @@
+#! /opt/homebrew/bin/fish
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title End streaming
+# @raycast.mode silent
+
+# Documentation:
+# @raycast.author ppy
+# @raycast.authorURL https://raycast.com/ppy
+
+
+pkill -x "Audio Hijack"
+pkill -x "OBS"
+
+echo "Setting Things filter..."
+open "things:///show?id=today&filter="

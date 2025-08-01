@@ -1,0 +1,94 @@
+#! /opt/homebrew/bin/fish
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Prepare for streaming
+# @raycast.mode silent
+
+# Documentation:
+# @raycast.author ppy
+# @raycast.authorURL https://raycast.com/ppy
+
+echo "Setting streaming focus..."
+shortcuts run "Set streaming focus"
+
+echo "Purging command line history..."
+
+yes all | history delete --contains "SHARED"
+yes all | history delete --contains ".osu."
+yes all | history delete --contains "ping"
+yes all | history delete --contains "youtube."
+yes all | history delete --contains "google."
+yes all | history delete --contains "cheat"
+yes all | history delete --contains "history delete"
+yes all | history delete --contains "yt-dlp"
+
+echo "Killing unnecessary apps..."
+
+pkill -x "datagrip"
+pkill -x "Superhuman"
+pkill -x "Safari"
+pkill -x "Transmit"
+pkill -x "Bear"
+pkill -x "Keychain Access"
+pkill -x "kube"
+pkill -x "IINA"
+pkill -x "Things3"
+
+echo "Emptying trash..."
+
+rm -rf ~/.Trash/*
+
+echo "Starting streaming apps..."
+
+open /Applications/Audio\ Hijack.app
+open /Applications/Safari.app
+
+sleep 5
+
+echo "Deleting clipboard history..."
+
+skhd -k "ctrl+alt+shift-v"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "return"; sleep 1; skhd -k "escape"
+
+echo "Deleting cleanshot history..."
+
+skhd -k "ctrl+alt+shift-x"
+sleep 0.2
+for i in (seq 1 20)
+    skhd -k "backspace"
+    sleep 0.03
+end
+sleep 0.5
+skhd -k "escape"
+
+echo "Deleting chat history..."
+
+skhd -k "cmd+shift-space"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "cmd+return"; sleep 1; skhd -k "escape"
+
+echo "Deleting dictionary history..."
+
+skhd -k "cmd-space"; sleep 0.3;
+osascript -e 'tell application "System Events" to keystroke "dict"'
+skhd -k "return"; skhd skhd -k "ctrl+shift-x"; sleep 1;
+skhd -k "escape"; sleep 0.3; skhd -k "escape"; sleep 0.3; skhd -k "escape"
+
+echo "Empty datagrip scratch buffer"
+truncate -s 0 /Users/dean/Projects/database/scratch.sql
+
+echo "Deleting rider scratch buffers..."
+
+for dir in (find "/Users/dean/Library/Application Support/JetBrains" -type d -name "scratches" -path "*/Rider*/scratches")
+        rm -r "$dir"
+end
+
+echo "Starting now playing updates..."
+
+update-now-playing
+
+echo "Switch to space 1"
+skhd -k "cmd+ctrl+alt+shift-s"
+
+echo "Setting Things filter..."
+open "things:///show?id=today&filter=Stream"
+
+open /Applications/OBS.app
