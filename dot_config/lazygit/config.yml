@@ -18,6 +18,7 @@ gui:
 refresher:
   refreshInterval: 60
 git:
+  overrideGpg: true
   autoFetch: true
   pull:
     mode: 'rebase'
