@@ -63,7 +63,7 @@ skhd -k "escape"
 
 echo "Deleting chat history..."
 
-skhd -k "cmd+shift-space"; sleep 0.3; skhd -k "ctrl+shift-x"; skhd -k "cmd+return"; sleep 1; skhd -k "escape"
+skhd -k "cmd+shift-space"; sleep 0.3; skhd -k "ctrl+shift-x"; sleep 0.5; skhd -k "cmd+return"; sleep 1; skhd -k "escape"
 
 echo "Deleting dictionary history..."
 
