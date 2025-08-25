@@ -11,7 +11,7 @@
 # @raycast.authorURL https://raycast.com/ppy
 
 # @raycast.packageName Safari GitHub actions
-# @raycast.argument1 { "type": "dropdown", "placeholder": "Approve", "data": [{"title": "Approve", "value": "1"},{"title": "Automerge", "value": "2"},{"title": "Force merge", "value": "3"}] }
+# @raycast.argument1 { "type": "dropdown", "placeholder": "Approve", "data": [{"title": "Approve", "value": "1"},{"title": "Automerge", "value": "2"},{"title": "Force merge", "value": "3"},{"title": "Squash merge", "value": "4"}] }
 
 url=`safari-ctl`
 repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
@@ -52,6 +52,10 @@ case "$1" in
         gh pr merge $url --merge --disable-auto
         gh pr merge $url --merge --admin
         echo "Approved and force merged #$number ($title)"
+        ;;
+    4)
+        gh pr merge $url --squash --admin
+        echo "Approved and squash merged #$number ($title)"
         ;;
 esac
 
