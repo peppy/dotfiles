@@ -151,7 +151,7 @@ customCommands:
         title: 'Clipboard diff'
         options:
           - name: 'apply'
-            value: 'pbpaste | git apply -'
+            value: 'echo "$(pbpaste)" | git apply -'
           - name: 'copy'
             value: "diff-to-clipboard"
     command: "{{index .PromptResponses 0}}"
