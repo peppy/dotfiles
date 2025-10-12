@@ -71,9 +71,9 @@ focus=$(get-current-focus)
 obs_running=$(pgrep -x OBS)
 
 if [ -n "$obs_running" ]; then
-    tag_param="&tags=Stream"
+    tag_param="&tags=Stream,Standup"
 else
-    tag_param=""
+    tag_param="&tags=Standup"
 fi
 
 if [ "$task_id" != "no" ]; then

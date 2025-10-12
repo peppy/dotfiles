@@ -12,6 +12,8 @@
 # @raycast.author ppy
 # @raycast.authorURL https://raycast.com/ppy
 
+set taskOutput to ""
+
 tell application "Things3"
 	set todayTasks to {}
 
@@ -54,8 +56,6 @@ tell application "Things3"
     if hours of currentDate < 12 then
         set currentDate to currentDate - (1 * days)
     end if
-
-	set finalOutput to "## " & my formatDate(currentDate) & linefeed & linefeed
 
 	set todayTasks to my sortTasksByName(todayTasks)
 
@@ -126,7 +126,7 @@ tell application "Things3"
 		if status of t is completed then
 			set taskIcon to "✅"
 		else if status of t is canceled then
-			set taskIcon to "⏸️"
+			set taskIcon to "🛑"
 		else
 			set taskIcon to "🏃‍"
 		end if
@@ -137,11 +137,11 @@ tell application "Things3"
 		  set projectName to ""
 		end if
 
-		set finalOutput to finalOutput & "- " & taskIcon & " " & projectName & urlInTitle & linefeed & formattedNotes
+		set taskOutput to taskOutput & "- " & taskIcon & " " & projectName & urlInTitle & linefeed & formattedNotes
 	end repeat
 end tell
 
-return finalOutput
+return "## " & my formatDate(currentDate) & linefeed & linefeed & taskOutput
 
 on formatDate(theDate)
 	set {year:y, month:m, day:d} to theDate
