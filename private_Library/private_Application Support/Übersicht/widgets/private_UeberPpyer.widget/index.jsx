@@ -260,7 +260,6 @@ export const command = "/opt/homebrew/bin/media-control get";
 export const initialState = {
   app: "",
   playing: false,
-  appleMusicError: false,
   songChange: false,
   primaryColor: undefined,
   secondaryColor: undefined,
@@ -338,11 +337,9 @@ const updateSongData = (output, error, previousState) => {
     return previousState;
 
   const playing = data.playing;
-  const app = data.bundleIdentifier;
   const track = data.title;
   const artist = data.artist;
   const album = data.album;
-  const appleMusicError = false;
   const duration = data.duration;
   const timeDiff = Date.now() - new Date(data.timestamp).getTime();
   let elapsed = data.elapsedTime;
@@ -360,9 +357,7 @@ const updateSongData = (output, error, previousState) => {
   ) {
     return {
       ...previousState,
-      app,
       playing,
-      appleMusicError,
       songChange: true,
       song: {
         track,
@@ -376,9 +371,7 @@ const updateSongData = (output, error, previousState) => {
   } else {
     return {
       ...previousState,
-      app,
       playing,
-      appleMusicError,
       song: {
         ...previousState.song,
         elapsed
