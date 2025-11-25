@@ -30,12 +30,9 @@ export FZF_TMUX_OPTS="-p 80%"
 
 alias ls='eza'
 
-# see https://github.com/dotnet/runtime/issues/68018
-# export DOTNET_ReadyToRun=0
-
-#if status is-interactive
-#    cd ~/Projects
-#end
+if status is-interactive
+    create-ramdisk
+end
 
 function ssh
   set ps_res (ps -p (ps -p %self -o ppid= | xargs) -o comm=)
