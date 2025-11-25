@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Creates an 8 gb ramdisk to optimise .NET unit tests.
+# Creates an 2 gb ramdisk to optimise .NET unit tests.
 # Pass -f to force recreation.
 
 force=false
@@ -16,7 +16,7 @@ if [ -n "$disk_id" ]; then
     fi
 fi
 
-diskutil erasevolume APFS 'ramdisk' $(hdiutil attach -nomount ram://16384000 | tr -d '[:space:]')
+diskutil erasevolume APFS 'ramdisk' $(hdiutil attach -nomount ram://4096000 | tr -d '[:space:]')
 
 mkdir /Volumes/ramdisk/of-test-headless
 rm -rf ${TMPDIR}of-test-headless
