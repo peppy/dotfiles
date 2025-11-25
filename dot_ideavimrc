@@ -50,6 +50,7 @@ map <Leader>l   <Action>(RestoreDefaultLayout)
 nmap ,          <Action>(ShowIntentionActions)
 
 nmap <Tab>      <Action>(ShowErrorDescription)
+imap <Tab>      <Action>(InsertInlineCompletionAction)
 " nmap <Esc>      <Action>(JumpToLastWindow)
 
 " TODO: find a key for this <Action>(QuickJavaDoc)

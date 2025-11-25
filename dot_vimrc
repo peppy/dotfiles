@@ -143,8 +143,4 @@ nnoremap <C-H> <C-W><C-H>
 
 nnoremap <silent><Esc><Esc> :noh<CR>
 
-" tab complete
-inoremap <expr> <Tab> pumvisible() ? '<C-n>' :
-            \ getline('.')[col('.')-2] =~# '[[:alnum:].-_#$]' ? '<C-x><C-o>' : '<Tab>'
-
 autocmd FileType c,cpp,java,php,cs,md autocmd BufWritePre <buffer> %s/\s\+$//e
