@@ -13,17 +13,17 @@ riderMarkupCache.xml
 *.user
 .bundle
 vendor/bundle
-misc.xml
-dataSources.xml
+# misc.xml
+# dataSources.xml
 .phpdoc
 
 # User-specific stuff
 
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
+# .idea/**/workspace.xml
+# .idea/**/tasks.xml
+# .idea/**/usage.statistics.xml
+# .idea/**/dictionaries
+# .idea/**/shelf
 
-# Should usually be committed, but I use rider with non-rider projects..
-.idea/**/indexLayout.xml
+# # Should usually be committed, but I use rider with non-rider projects..
+# .idea/**/indexLayout.xml
