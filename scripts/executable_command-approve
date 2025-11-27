@@ -50,8 +50,14 @@ case "$1" in
         ;;
     3)
         gh pr merge $url --merge --disable-auto
-        gh pr merge $url --merge --admin
-        echo "Approved and force merged #$number ($title)"
+
+        OUTPUT=$(gh pr merge $url --merge --admin 2>&1)
+        if [[ $OUTPUT == *"merged pull"* ]]; then
+            echo "Approved and force merged #$number ($title)"
+        else
+            gh pr merge $url --squash --admin;
+            echo "Approved and force squashed #$number ($title)"
+        fi
         ;;
     4)
         gh pr merge $url --squash --admin
