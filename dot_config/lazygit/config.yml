@@ -22,10 +22,10 @@ git:
   autoFetch: true
   pull:
     mode: 'rebase'
-  paging:
-    colorArg: always
-    # pager: cat
-    # pager: delta --paging=never
+  pagers:
+    - colorArg: always
+      # pager: cat
+      # pager: delta --paging=never
 update:
   method: never
 confirmOnQuit: true
