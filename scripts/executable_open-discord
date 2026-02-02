@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Open Discord (Delayed)
+# @raycast.mode silent
+
+# Optional parameters:
+# @raycast.icon ⏳
+# @raycast.packageName Social
+
+ICON_PATH="/Applications/Discord.app/Contents/Resources/electron.icns"
+
+osascript <<EOD
+try
+    set dialogResult to display dialog "Launching Discord in 5 seconds..." ¬
+        with title "Open Discord?" ¬
+        buttons {"Oops I didn't mean to"} ¬
+        cancel button "Oops I didn't mean to" ¬
+        with icon file POSIX file "$ICON_PATH" ¬
+        giving up after 5
+
+    if gave up of dialogResult is true then
+        do shell script "open -a 'Discord'"
+    end if
+
+on error number -128
+    -- Error -128 is the system code for "User Cancelled" / ESC key
+    -- We catch it here so the script exits silently
+    return
+end try
+EOD
+
