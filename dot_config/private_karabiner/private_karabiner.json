@@ -6,6 +6,37 @@
                 "parameters": { "mouse_motion_to_scroll.speed": 1 },
                 "rules": [
                     {
+                        "description": "Swap \"command + tab\" with \"option + tab\" (Compatibility for AltTab app)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": { "mandatory": ["command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": { "mandatory": ["option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "RCMD to MEH",
                         "manipulators": [
                             {
@@ -85,6 +116,21 @@
                     {
                         "description": "SCLN_NAV",
                         "manipulators": [
+                            {
+                                "description": "semicolon + space = semicolon then space (immediate output)",
+                                "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": {
+                                        "mandatory": ["right_command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    { "key_code": "semicolon" },
+                                    { "key_code": "spacebar" }
+                                ],
+                                "type": "basic"
+                            },
                             {
                                 "description": "semicolon = ;(click) | hyper(hold)",
                                 "from": {
