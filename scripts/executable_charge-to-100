@@ -1,0 +1,13 @@
+#! /opt/homebrew/bin/fish
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Charge to 100%
+# @raycast.mode silent
+
+# Documentation:
+# @raycast.author ppy
+# @raycast.authorURL https://raycast.com/ppy
+
+bclm_loop chargeNow
+echo "Now charging to 100%"
