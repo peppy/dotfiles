@@ -20,14 +20,13 @@ yabai -m rule --add app="Things" space=^1
 # space 2: development
 yabai -m rule --add app="JetBrains Rider.*" space=^2
 yabai -m rule --add app="PhpStorm.*" space=^2
+yabai -m rule --add app="DataGrip.*" space=^2
 
 # space 3: web
 yabai -m rule --add app="Safari" space=^3
 
 # space 4: private/utility apps
-yabai -m space 4 --layout stack
 yabai -m rule --add app="Superhuman" space=^4
-yabai -m rule --add app="DataGrip" space=^4
 yabai -m rule --add app="Pixelmator*" space=^4
 
 # space 5: remoting
