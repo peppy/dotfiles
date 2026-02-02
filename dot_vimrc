@@ -23,6 +23,8 @@ set so=4
 filetype off
 syntax on
 
+set list listchars=trail:·
+
 set mouse=""
 
 let mapleader = "'"
@@ -143,4 +145,4 @@ nnoremap <C-H> <C-W><C-H>
 
 nnoremap <silent><Esc><Esc> :noh<CR>
 
-autocmd FileType c,cpp,java,php,cs,md autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd BufWritePre <buffer> %s/\s\+$//e
