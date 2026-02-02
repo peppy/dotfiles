@@ -331,7 +331,11 @@ const updateSongData = (output, error, previousState) => {
     return err_output;
   }
 
-  const data = JSON.parse(output);
+  let data = null;
+
+  try {
+    data = JSON.parse(output);
+  } catch (error) { }
 
   if (!data)
     return previousState;
