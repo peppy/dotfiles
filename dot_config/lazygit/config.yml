@@ -111,6 +111,7 @@ keybinding:
     cherryPickCopy: 'c'
     cherryPickCopyRange: 'C'
     pasteCommits: 'v'
+    setFixupMessage: '<disabled>'
     tagCommit: 'T'
     toggleDiffCommit: 'i'
     checkoutCommit: '<space>'
