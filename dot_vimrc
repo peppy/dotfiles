@@ -26,7 +26,6 @@ syntax on
 set list listchars=trail:·
 
 set mouse=""
-
 let mapleader = "'"
 
 set updatetime=500
@@ -99,7 +98,7 @@ if argc() == 0 | silent! source .vimsession | endif
 
 nnoremap <silent> <Leader>o :call <sid>savesession()<CR>:silent call fzf#run({'source': 'ls ~/Projects/', 'options': '--reverse --prompt "Projects "', 'down': 20, 'dir': '~/Projects/', 'sink': function('<sid>loadsession') })<CR>
 nnoremap <Leader>e   :ALENextWrap<CR>
-nnoremap <Leader>F   :Rg 
+nnoremap <Leader>F   :Rg
 nnoremap <Leader>t   :GFiles<CR>
 nnoremap <Leader>w   :w<CR>
 nnoremap <Leader>Q   :q!<CR>
@@ -143,6 +142,13 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-nnoremap <silent><Esc><Esc> :noh<CR>
+" go to definition using simple ripgrep
+set grepprg=rg\ --vimgrep\ --smart-case
+set grepformat=%f:%l:%c:%m
+nnoremap gd :silent grep! -w <C-R><C-W><CR>:copen<CR>
+
+nnoremap <silent> <S-Tab> :copen<CR>
+nnoremap <silent> <Esc><Esc> :if &buftype ==# 'quickfix' \| cclose \| else \| noh \| endif<CR>
+
 
 autocmd BufWritePre <buffer> %s/\s\+$//e
