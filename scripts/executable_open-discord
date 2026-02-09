@@ -13,6 +13,11 @@ ICON_PATH="/Applications/Discord.app/Contents/Resources/electron.icns"
 
 osascript <<EOD
 try
+    if application "Discord" is running then
+        tell application "Discord" to activate
+        return
+    end if
+
     set dialogResult to display dialog "Launching Discord in 5 seconds..." ¬
         with title "Open Discord?" ¬
         buttons {"Oops I didn't mean to"} ¬
