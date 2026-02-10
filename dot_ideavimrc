@@ -15,7 +15,13 @@ imap <PageUp> <Space>
 imap <PageDown> <Space>
 
 map <Leader>\   <Action>(Refactorings.QuickListPopupAction)
-map <Leader>e   <Action>(ReSharperGotoNextErrorInSolution)
+
+if &ide =~ "Rider"
+    map <Leader>e <Action>(ReSharperGotoNextErrorInSolution)
+else
+    map <Leader>e <Action>(GotoNextError)
+endif
+
 map <Leader>r   <Action>(ChooseRunConfiguration)
 map <Leader>R   <Action>(RenameElement)
 map <Leader>t   <Action>(SearchEverywhere)
@@ -51,7 +57,7 @@ nmap ,          <Action>(ShowIntentionActions)
 
 nmap <Tab>      <Action>(ShowErrorDescription)
 imap <Tab>      <Action>(InsertInlineCompletionAction)
-" nmap <Esc>      <Action>(JumpToLastWindow)
+nmap <S-Tab>    <Action>(JumpToLastWindow)
 
 " TODO: find a key for this <Action>(QuickJavaDoc)
 
@@ -61,8 +67,12 @@ map <Leader>,   :source ~/.ideavimrc<CR>
 map <C-h> <Action>(PreviousTab)
 map <C-l> <Action>(NextTab)
 
-map <C-j> <Action>(ResizeToolWindowDown)
-map <C-k> <Action>(ResizeToolWindowUp)
+" These don't work because ideavim doesn't receive input when a tool window is
+" focused. These will need to be set in the standard key mapping setup.
+map <C-J> <Action>(ResizeToolWindowDown)
+map <C-H> <Action>(ResizeToolWindowLeft)
+map <C-L> <Action>(ResizeToolWindowRight)
+map <C-K> <Action>(ResizeToolWindowUp)
 
 nmap <Space> <C-D>
 nmap <S-Space> <C-U>
@@ -72,7 +82,7 @@ nmap <S-Space> <C-U>
 map <Leader>wt <Action>(ActivateUnitTestsToolWindow)
 map <Leader>wd <Action>(ActivateDebugToolWindow)
 map <Leader>ws <Action>(ActivateProjectToolWindow)
-map <Leader>we <Action>(Rider.ProblemsView.ErrorsInSolution)
+map <Leader>we <Action>(ActivateProblemsViewToolWindow)
 map <Leader>wi <Action>(NavigateToImmediateWindow)
 map <Leader>wr <Action>(ActivateRunToolWindow)
 map <Leader>wf <Action>(ActivateStructureToolWindow)
