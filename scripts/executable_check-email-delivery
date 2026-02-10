@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Check osu! email SMTP delivery logs
+# @raycast.icon 📥
+# @raycast.mode fullOutput
+# @raycast.argument1 { "type": "text", "placeholder": "email" }
+
+ssh smtp.ppy.sh "rg \"$1\" /var/log/mail* | tail -n 4"
