@@ -45,10 +45,16 @@ map <Leader>s   <Action>(FileStructurePopup)
 map <Leader>S   <Action>(ShowSolutionPropertiesAction)
 map <Leader>d   <Action>(ChooseDebugConfiguration)
 map <Leader>F   <Action>(FindInPath)
+
 # WHAT THE FUCK at case differences??
 map <Leader>gc  <Action>(GitHub.Copy.Link)
 map <Leader>go  <Action>(Github.Open.In.Browser)
 map <Leader>G   <Action>(Github.Open.In.Browser)
+
+map <Leader>ga  <Action>(Code.Review.Editor.New.Comment)
+map <Leader>gd  <Action>(Code.Review.Editor.Show.Diff)
+map <Leader>gs  <Action>(Github.PullRequest.Review.Submit)
+
 map <C-'>       <Action>(Run)
 
 map <Leader>b   <Action>(ToggleLineBreakpoint)
