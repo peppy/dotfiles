@@ -17,7 +17,6 @@ set taskOutput to ""
 tell application "Things3"
 	set todayTasks to {}
 
-	-- Get tasks directly in the "Today" list
 	set allTodayTasks to to dos of list "Today"
 	repeat with aTask in allTodayTasks
 		set taskTags to tag names of aTask
@@ -26,120 +25,109 @@ tell application "Things3"
 		end if
 	end repeat
 
-	-- Check each project for tasks dated today
-	set today to current date
-	set allProjects to projects
-	repeat with aProject in allProjects
-		set projectTasks to to dos of aProject
-		repeat with aTask in projectTasks
-			if (status of aTask is open) then
-				set dueDate to activation date of aTask
-				if dueDate is not missing value and dueDate = today then
-					set taskTags to tag names of aTask
-					if taskTags contains "Standup" then
-						set end of todayTasks to aTask
-					end if
-				end if
-			end if
-		end repeat
-	end repeat
-	set firstCompletedTask to missing value
+	set currentDate to current date
+	if hours of currentDate < 12 then
+		set currentDate to currentDate - (1 * days)
+	end if
 
-	repeat with task in todayTasks
-		if status of task is completed then
-			set firstCompletedTask to task
-			exit repeat
-		end if
-	end repeat
-
-    set currentDate to current date
-    if hours of currentDate < 12 then
-        set currentDate to currentDate - (1 * days)
-    end if
-
-	set todayTasks to my sortTasksByName(todayTasks)
-
+	set taskDataList to {}
 	repeat with t in todayTasks
 		set taskName to name of t
 		set taskNotes to notes of t
-		set formattedNotes to ""
-		set urlInTitle to "**" & taskName & "**"
+		set taskStatus to status of t
 
-		if taskNotes is not "" then
-			set noteLines to paragraphs of taskNotes
-			set firstLine to item 1 of noteLines
-
-			set linkURL to ""
-
-            if firstLine starts with "[" and firstLine contains "](" and firstLine ends with ")" then
-                set startBracket to offset of "[" in firstLine
-                set endBracket to offset of "]" in firstLine
-                set startParen to offset of "(" in firstLine
-                set endParen to offset of ")" in firstLine
-                set linkURL to text (startParen + 1) thru (endParen - 1) of firstLine
-            else if firstLine starts with "http" and firstLine does not contain " " then
-                set linkURL to firstLine
-            end if
-
-			if linkURL is not "" then
-				if linkURL contains "https" then
-					if taskName contains ":" then
-						set colonPos to offset of ":" in taskName
-						set titlePart to text (colonPos + 1) thru -1 of taskName
-
-						if titlePart starts with " " then
-							set titlePart to text 2 thru -1 of titlePart
-						end if
-
-						set urlInTitle to text 1 thru colonPos of taskName & " **" & titlePart & "** ([view](<" & linkURL & ">))"
-					else
-						set urlInTitle to "**" & taskName & "** ([view](<" & linkURL & ">))"
-					end if
-				end if
-
-				if (count of noteLines) > 1 then
-					set noteLines to items 2 thru -1 of noteLines
-				else
-					set noteLines to {}
-				end if
-			end if
-
-			set noteLines to my trimEmptyLines(noteLines)
-
-			set inCodeBlock to false
-			repeat with l in noteLines
-
-			    set l to my normaliseLineEndings(l)
-				if l starts with "```" then
-					set inCodeBlock to not inCodeBlock
-					set formattedNotes to formattedNotes & l & linefeed
-				else
-					set formattedLine to my surroundURLsWithBrackets(l)
-					if not inCodeBlock then
-						set formattedLine to "> " & formattedLine
-					end if
-					set formattedNotes to formattedNotes & formattedLine & linefeed
-				end if
-			end repeat
-		end if
-
-		if status of t is completed then
+		if taskStatus is completed then
+			set statusOrder to 0
 			set taskIcon to "✅"
-		else if status of t is canceled then
+		else if taskStatus is canceled then
+			set statusOrder to 1
 			set taskIcon to "🛑"
 		else
+			set statusOrder to 1
 			set taskIcon to "🏃‍"
 		end if
 
 		if project of t is not missing value then
 			set projectName to name of project of t & ": "
 		else
-		  set projectName to ""
+			set projectName to ""
 		end if
 
-		set taskOutput to taskOutput & "- " & taskIcon & " " & projectName & urlInTitle & linefeed & formattedNotes
+		set end of taskDataList to {statusOrder, taskName, taskNotes, taskIcon, projectName}
 	end repeat
 end tell
+
+set taskDataList to my quickSort(taskDataList)
+
+repeat with taskData in taskDataList
+	set taskName to item 2 of taskData
+	set taskNotes to item 3 of taskData
+	set taskIcon to item 4 of taskData
+	set projectName to item 5 of taskData
+
+	set formattedNotes to ""
+	set urlInTitle to "**" & taskName & "**"
+
+	if taskNotes is not "" then
+		set noteLines to paragraphs of taskNotes
+		set firstLine to item 1 of noteLines
+
+		set linkURL to ""
+
+		if firstLine starts with "[" and firstLine contains "](" and firstLine ends with ")" then
+			set startBracket to offset of "[" in firstLine
+			set endBracket to offset of "]" in firstLine
+			set startParen to offset of "(" in firstLine
+			set endParen to offset of ")" in firstLine
+			set linkURL to text (startParen + 1) thru (endParen - 1) of firstLine
+		else if firstLine starts with "http" and firstLine does not contain " " then
+			set linkURL to firstLine
+		end if
+
+		if linkURL is not "" then
+			if linkURL contains "https" then
+				if taskName contains ":" then
+					set colonPos to offset of ":" in taskName
+					set titlePart to text (colonPos + 1) thru -1 of taskName
+
+					if titlePart starts with " " then
+						set titlePart to text 2 thru -1 of titlePart
+					end if
+
+					set urlInTitle to text 1 thru colonPos of taskName & " **" & titlePart & "** ([view](<" & linkURL & ">))"
+				else
+					set urlInTitle to "**" & taskName & "** ([view](<" & linkURL & ">))"
+				end if
+			end if
+
+			if (count of noteLines) > 1 then
+				set noteLines to items 2 thru -1 of noteLines
+			else
+				set noteLines to {}
+			end if
+		end if
+
+		set noteLines to my trimEmptyLines(noteLines)
+
+		set inCodeBlock to false
+		repeat with l in noteLines
+
+			set l to my normaliseLineEndings(l)
+			if l starts with "```" then
+				set inCodeBlock to not inCodeBlock
+				set formattedNotes to formattedNotes & l & linefeed
+			else
+				set formattedLine to my surroundURLsWithBrackets(l)
+				if not inCodeBlock then
+					set formattedLine to "> " & formattedLine
+				end if
+				set formattedNotes to formattedNotes & formattedLine & linefeed
+			end if
+		end repeat
+	end if
+
+	set taskOutput to taskOutput & "- " & taskIcon & " " & projectName & urlInTitle & linefeed & formattedNotes
+end repeat
 
 return "## " & my formatDate(currentDate) & linefeed & linefeed & taskOutput
 
@@ -160,7 +148,8 @@ on normaliseLineEndings(theText)
 	set tempText to ""
 	repeat with i from 1 to (count theText)
 		set thisChar to character i of theText
-		if thisChar is " " or thisChar is " " then -- U+2028 or U+2029
+		set charID to id of thisChar
+		if charID is 8232 or charID is 8233 then -- U+2028 or U+2029
 			set tempText to tempText & return
 		else
 			set tempText to tempText & thisChar
@@ -199,23 +188,6 @@ on surroundURLsWithBrackets(inputText)
 	return modifiedText
 end surroundURLsWithBrackets
 
-on sortTasksByName(taskList)
-	set nameAndRefList to {}
-	repeat with aTask in taskList
-		set taskName to name of aTask
-		set end of nameAndRefList to {taskName, aTask}
-	end repeat
-
-	set sortedList to my quickSort(nameAndRefList)
-
-	set sortedTasks to {}
-	repeat with i in sortedList
-		set end of sortedTasks to i's second item
-	end repeat
-
-	return sortedTasks
-end sortTasksByName
-
 on quickSort(theList)
 	if length of theList ≤ 1 then
 		return theList
@@ -227,7 +199,17 @@ on quickSort(theList)
 
 	repeat with i from 2 to length of theList
 		set currentItem to item i of theList
-		if (first item of currentItem) comes before (first item of pivot) then
+		set currentStatus to first item of currentItem
+		set currentName to second item of currentItem
+		set pivotStatus to first item of pivot
+		set pivotName to second item of pivot
+
+		-- Sort by status first, then by name
+		if currentStatus < pivotStatus then
+			set end of lessList to currentItem
+		else if currentStatus > pivotStatus then
+			set end of greaterList to currentItem
+		else if currentName comes before pivotName then
 			set end of lessList to currentItem
 		else
 			set end of greaterList to currentItem
