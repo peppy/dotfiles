@@ -147,8 +147,10 @@ set grepprg=rg\ --vimgrep\ --smart-case
 set grepformat=%f:%l:%c:%m
 nnoremap gd :silent grep! -w <C-R><C-W><CR>:copen<CR>
 
-nnoremap <silent> <S-Tab> :copen<CR>
-nnoremap <silent> <Esc><Esc> :if &buftype ==# 'quickfix' \| cclose \| else \| noh \| endif<CR>
+if has('nvim')
+    nnoremap <silent> <S-Tab> :copen<CR>
+    nnoremap <silent> <Esc><Esc> :if &buftype ==# 'quickfix' \| cclose \| else \| noh \| endif<CR>
+endif
 
 
 autocmd BufWritePre <buffer> %s/\s\+$//e
