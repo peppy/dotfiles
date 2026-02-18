@@ -67,15 +67,9 @@ nmap <S-Tab>    <Action>(JumpToLastWindow)
 nmap ;    <Action>(AceAction)
 
 map <Leader>,   :source ~/.ideavimrc<CR>
+
 map <C-h> <Action>(PreviousTab)
 map <C-l> <Action>(NextTab)
-
-" These don't work because ideavim doesn't receive input when a tool window is
-" focused. These will need to be set in the standard key mapping setup.
-map <C-J> <Action>(ResizeToolWindowDown)
-map <C-H> <Action>(ResizeToolWindowLeft)
-map <C-L> <Action>(ResizeToolWindowRight)
-map <C-K> <Action>(ResizeToolWindowUp)
 
 nmap <Space> <C-D>
 nmap <S-Space> <C-U>
