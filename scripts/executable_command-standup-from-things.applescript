@@ -30,6 +30,31 @@ tell application "Things3"
 		set currentDate to currentDate - (1 * days)
 	end if
 
+	-- Build lookup table for area order
+	set allAreas to areas
+	set areaOrderMap to {}
+	repeat with i from 1 to count of allAreas
+		set areaName to my trimWhitespace(name of item i of allAreas)
+		set end of areaOrderMap to {areaName, i}
+	end repeat
+
+	-- Build lookup table for projects with their area's order
+	set allProjects to projects
+	set projectOrderMap to {}
+	repeat with i from 1 to count of allProjects
+		set proj to item i of allProjects
+		set projName to my trimWhitespace(name of proj)
+		if area of proj is not missing value then
+			set parentAreaName to my trimWhitespace(name of area of proj)
+			set areaOrder to my getOrderFromMap(areaOrderMap, parentAreaName)
+			-- Use area order * 1000 + project index for sub-ordering within area
+			set end of projectOrderMap to {projName, areaOrder * 1000 + i}
+		else
+			-- Projects without areas get high numbers
+			set end of projectOrderMap to {projName, 10000 + i}
+		end if
+	end repeat
+
 	set taskDataList to {}
 	repeat with t in todayTasks
 		set taskName to name of t
@@ -44,26 +69,37 @@ tell application "Things3"
 			set taskIcon to "🛑"
 		else
 			set statusOrder to 1
-			set taskIcon to "🏃‍"
+			set taskIcon to "🚧"
 		end if
 
+		set groupOrder to 99999
 		if project of t is not missing value then
-			set projectName to name of project of t & ": "
+			set groupName to my trimWhitespace(name of project of t)
+			set groupOrder to my getOrderFromMap(projectOrderMap, groupName)
+		else if area of t is not missing value then
+			set groupName to my trimWhitespace(name of area of t)
+			set groupOrder to my getOrderFromMap(areaOrderMap, groupName) * 1000
 		else
-			set projectName to ""
+			set groupName to "Other"
 		end if
 
-		set end of taskDataList to {statusOrder, taskName, taskNotes, taskIcon, projectName}
+		set end of taskDataList to {groupOrder, groupName, statusOrder, taskName, taskNotes, taskIcon}
 	end repeat
 end tell
 
 set taskDataList to my quickSort(taskDataList)
 
+set currentGroup to ""
 repeat with taskData in taskDataList
-	set taskName to item 2 of taskData
-	set taskNotes to item 3 of taskData
-	set taskIcon to item 4 of taskData
-	set projectName to item 5 of taskData
+	set groupName to item 2 of taskData
+	set taskName to item 4 of taskData
+	set taskNotes to item 5 of taskData
+	set taskIcon to item 6 of taskData
+
+	if groupName is not currentGroup then
+		set currentGroup to groupName
+		set taskOutput to taskOutput & "### " & groupName & linefeed
+	end if
 
 	set formattedNotes to ""
 	set urlInTitle to "**" & taskName & "**"
@@ -126,10 +162,24 @@ repeat with taskData in taskDataList
 		end repeat
 	end if
 
-	set taskOutput to taskOutput & "- " & taskIcon & " " & projectName & urlInTitle & linefeed & formattedNotes
+	set taskOutput to taskOutput & "- " & taskIcon & " " & urlInTitle & linefeed & formattedNotes
 end repeat
 
-return "## " & my formatDate(currentDate) & linefeed & linefeed & taskOutput
+return "## " & my formatDate(currentDate) & linefeed & taskOutput
+
+on trimWhitespace(txt)
+	set trimmedText to do shell script "echo " & quoted form of txt & " | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'"
+	return trimmedText
+end trimWhitespace
+
+on getOrderFromMap(orderMap, itemName)
+	repeat with mapEntry in orderMap
+		if first item of mapEntry is itemName then
+			return second item of mapEntry
+		end if
+	end repeat
+	return 99999
+end getOrderFromMap
 
 on formatDate(theDate)
 	set {year:y, month:m, day:d} to theDate
@@ -199,13 +249,21 @@ on quickSort(theList)
 
 	repeat with i from 2 to length of theList
 		set currentItem to item i of theList
-		set currentStatus to first item of currentItem
-		set currentName to second item of currentItem
-		set pivotStatus to first item of pivot
-		set pivotName to second item of pivot
+		set currentGroupOrder to first item of currentItem
+		set currentGroup to second item of currentItem
+		set currentStatus to third item of currentItem
+		set currentName to fourth item of currentItem
+		set pivotGroupOrder to first item of pivot
+		set pivotGroup to second item of pivot
+		set pivotStatus to third item of pivot
+		set pivotName to fourth item of pivot
 
-		-- Sort by status first, then by name
-		if currentStatus < pivotStatus then
+		-- Sort by group order first, then status, then name
+		if currentGroupOrder < pivotGroupOrder then
+			set end of lessList to currentItem
+		else if currentGroupOrder > pivotGroupOrder then
+			set end of greaterList to currentItem
+		else if currentStatus < pivotStatus then
 			set end of lessList to currentItem
 		else if currentStatus > pivotStatus then
 			set end of greaterList to currentItem
