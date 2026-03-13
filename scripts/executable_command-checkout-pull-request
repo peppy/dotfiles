@@ -13,8 +13,11 @@
 # @raycast.argument1 { "type": "dropdown", "placeholder": "Checkout", "data": [{"title": "Checkout", "value": "1"},{"title": "Just task", "value": "2"}] }
 
 url=`safari-ctl`
+# alternatively, the following (but seems just as unreliable):
+# url=$(osascript -e 'tell application "Safari" to return URL of current tab of front window')
 
 repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
+owner=$(echo $url | sed -e 's,https://github.com/\([^/]*\)/.*,\1,g')
 cd ~/Projects/$repo/ > /dev/null 2>&1
 
 if [[ "$url" == *"/pull/"* ]]; then
@@ -34,20 +37,23 @@ if [[ "$url" == *"/pull/"* ]]; then
     else
         task_title="Review: $title"
     fi
+elif [[ "$url" == *"/commit/"* ]]; then
+    commit_sha=$(echo "$url" | sed -e 's,.*/commit/\([a-f0-9]*\).*,\1,')
+    commit_message=$(gh api repos/$owner/$repo/commits/$commit_sha --jq '.commit.message' | head -n1)
+    task_title="$commit_message"
 elif [[ "$url" == *"/issues/"* ]]; then
     eval "$(gh issue view $url --json "number,title,url" | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)"')"
     task_title="Investigate: $title"
 elif [[ "$url" == *"/discussions/"* ]]; then
     discussion_number=`echo $url | sed -e 's,https://github.com/.*/\([0-9]\),\1,g'`
-    eval "$(gh api repos/ppy/$repo/discussions/$discussion_number --jq '{number: .number, title: .title, url: .html_url}' | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)"')"
+    eval "$(gh api repos/$owner/$repo/discussions/$discussion_number --jq '{number: .number, title: .title, url: .html_url}' | jq -r '@sh "number=\(.number)", @sh "title=\(.title)", @sh "url=\(.url)"')"
     task_title="Investigate: $title"
 else
     echo "Not a valid github tab!"
     exit 1
 fi
 
-
-task_notes="[github ppy/$repo#$number]($url)"
+task_notes="[github $owner/$repo#$number]($url)"
 
 task_title_escaped=$(echo "$task_title" | sed 's/"/\\"/g')
 task_notes=$(echo "$task_notes" | sed 's/"/\\"/g')
