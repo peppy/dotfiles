@@ -23,7 +23,8 @@ set so=4
 filetype off
 syntax on
 
-set list listchars=trail:·
+set encoding=utf-8
+set listchars=trail:·
 
 set mouse=""
 let mapleader = "'"
@@ -98,7 +99,7 @@ if argc() == 0 | silent! source .vimsession | endif
 
 nnoremap <silent> <Leader>o :call <sid>savesession()<CR>:silent call fzf#run({'source': 'ls ~/Projects/', 'options': '--reverse --prompt "Projects "', 'down': 20, 'dir': '~/Projects/', 'sink': function('<sid>loadsession') })<CR>
 nnoremap <Leader>e   :ALENextWrap<CR>
-nnoremap <Leader>F   :Rg
+nnoremap <Leader>F   :Rg<Space>
 nnoremap <Leader>t   :GFiles<CR>
 nnoremap <Leader>w   :w<CR>
 nnoremap <Leader>Q   :q!<CR>
