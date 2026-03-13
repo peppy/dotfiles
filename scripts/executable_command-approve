@@ -12,6 +12,7 @@
 
 # @raycast.packageName Safari GitHub actions
 # @raycast.argument1 { "type": "dropdown", "placeholder": "Approve", "data": [{"title": "Approve", "value": "1"},{"title": "Automerge", "value": "2"},{"title": "Force merge", "value": "3"},{"title": "Squash merge", "value": "4"}] }
+# @raycast.argument2 { "type": "text", "placeholder": "Review body text", "optional": true }
 
 url=`safari-ctl`
 repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
@@ -32,7 +33,7 @@ reviews=$(gh api repos/$owner/$repo/pulls/$number/reviews)
 if echo "$reviews" | jq --arg username "$username" '.[] | select(.user.login == $username) | select(.state == "APPROVED")' | grep -q 'APPROVED'; then
   reviewed=1;
 else
-  gh pr review $url -a
+  gh pr review $url --approve --body "$2"
   reviewed=0;
 fi
 
