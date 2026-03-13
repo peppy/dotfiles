@@ -4,7 +4,8 @@ yabai -m config layout                       stack
 yabai -m config top_padding                  12
 yabai -m config bottom_padding               12
 yabai -m config left_padding                 12
-yabai -m config right_padding                376
+yabai -m config right_padding                 12
+# yabai -m config right_padding                376
 yabai -m config window_gap                   12
 
 yabai -m rule --add title="JetBrains Toolbox" manage=off mouse_follows_focus=off
