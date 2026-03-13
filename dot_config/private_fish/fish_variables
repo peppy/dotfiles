@@ -1,5 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export HOMEBREW_NO_AUTO_UPDATE:1
 SETUVAR __fish_initialized:4300
 SETUVAR _fish_abbr_mux:tmuxinator
 SETUVAR fish_escape_delay_ms:10
