@@ -92,22 +92,35 @@ echo "Added task"
 
 # select the newly added task
 osascript <<EOF
-tell application "System Events"
-    -- Activate Things
-    tell application "Things3" to activate
-    repeat until application "Things3" is frontmost
-        delay 0.01
-    end repeat
-
-    delay 0.05
-    key code 53  -- escape
-    delay 0.02
-    key code 53  -- escape (in case raycast is still visible)
-    delay 0.02
-    key code 125 -- down arrow
-    delay 0.02
-    key code 125 -- down arrow
+tell application "Things3"
+	set matchIndex to 0
+	repeat with i from 1 to count of to dos of list "Today"
+		if name of item i of to dos of list "Today" contains "$task_title" then
+			set matchIndex to i
+			exit repeat
+		end if
+	end repeat
+	activate
 end tell
+
+if matchIndex > 0 then
+	delay 0.3
+	tell application "System Events" to tell process "Things3"
+		set allH to size of every row of table 1 of scroll area 1 of window "Today"
+		set n to 0
+		repeat with i from 1 to count of allH
+			if item 2 of item i of allH = 36 then
+				if i < (count of allH) and item 2 of item (i + 1) of allH = 36 then
+					set n to n + 1
+					if n = matchIndex then
+						set selected of row i of table 1 of scroll area 1 of window "Today" to true
+						exit repeat
+					end if
+				end if
+			end if
+		end repeat
+	end tell
+end if
 EOF
 
 # osascript -e 'tell application "Safari" to activate'
