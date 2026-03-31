@@ -1,0 +1,29 @@
+.git
+node_modules
+.npm
+.gem
+.cache
+.nuget
+.DS_Store
+*cache*
+.Trash
+Applications
+Library/Caches
+Library/Logs
+Library/Mail
+Library/Safari
+Library/Containers
+Library/Application Support
+Library/Group Containers
+Library/Containers
+vendor
+undodir
+__pycache__
+**/thumbnail/**
+.venv
+venv
+target
+Workspaces
+build
+dist
+*.app
