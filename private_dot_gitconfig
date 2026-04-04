@@ -49,18 +49,40 @@
 	}; f"
 	c  = !git commit -a -m
 	undo = !git reset --soft HEAD^
-	cleanup = "!f() { \
-		git fetch upstream; \
-		git checkout master; \
-		git pull upstream master; \
-		git push origin master; \
-		git branch -r --merged | grep -v master | grep origin | sed 's/origin\\///' | gxargs -r -n 1 git push --delete origin; \
-		git branch --merged | grep -v master | gxargs -r -n 1 git branch -d; \
+    cleanup = "!f() { \
+        git fetch upstream && \
+        git checkout master && \
+        git pull upstream master && \
+        git push origin master && \
+        git for-each-ref refs/heads/ --format='%(refname:short)' | while read branch; do \
+            [ \"$branch\" = \"master\" ] && continue; \
+            state=$(gh pr list --head \"$branch\" --state merged --json state --jq '.[0].state' 2>/dev/null); \
+            if [ \"$state\" = \"MERGED\" ]; then \
+                echo \"Deleting: $branch\"; \
+                git branch -D \"$branch\"; \
+            fi; \
+        done; \
+        git for-each-ref refs/heads/ --format='%(refname:short)' | while read branch; do \
+            [ \"$branch\" = \"master\" ] && continue; \
+            mergeBase=$(git merge-base master \"$branch\" 2>/dev/null) || continue; \
+            if [ -z \"$(git diff \"$mergeBase\"..\"$branch\" --stat)\" ] || \
+               [ -z \"$(git diff master...\"$branch\" --stat)\" ]; then \
+                echo \"Deleting (no diff): $branch\"; \
+                git branch -D \"$branch\"; \
+            fi; \
+        done; \
+        git for-each-ref refs/heads/ --format='%(refname:short)' | while read branch; do \
+            [ \"$branch\" = \"master\" ] && continue; \
+            if [ \"$(git cherry master \"$branch\" 2>/dev/null | grep -c '^+')\" -eq 0 ]; then \
+                echo \"Deleting (cherry): $branch\"; \
+                git branch -D \"$branch\"; \
+            fi; \
+        done; \
 		git branch -vv | grep ': gone]'|  grep -v '\\*' | awk '{ print $1; }' | gxargs -r git branch -D; \
-		git fetch --all --prune; \
+        git fetch --all --prune; \
         git prune; \
         git gc --aggressive; \
-	}; f"
+    }; f"
 [hub]
 	protocol = https
 [submodule]
