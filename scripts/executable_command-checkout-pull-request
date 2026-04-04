@@ -12,9 +12,22 @@
 # @raycast.packageName Safari GitHub actions
 # @raycast.argument1 { "type": "dropdown", "placeholder": "Checkout", "data": [{"title": "Checkout", "value": "1"},{"title": "Just task", "value": "2"}] }
 
-url=`safari-ctl`
-# alternatively, the following (but seems just as unreliable):
-# url=$(osascript -e 'tell application "Safari" to return URL of current tab of front window')
+url=$(osascript <<EOF
+tell application "Safari"
+    tell application "System Events"
+        tell process "Safari"
+            set winName to name of (first window whose value of attribute "AXMain" is true)
+        end tell
+    end tell
+
+    repeat with w in windows
+        if name of w is winName then
+            return URL of current tab of w
+        end if
+    end repeat
+end tell
+EOF
+)
 
 repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
 owner=$(echo $url | sed -e 's,https://github.com/\([^/]*\)/.*,\1,g')

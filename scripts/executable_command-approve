@@ -14,9 +14,25 @@
 # @raycast.argument1 { "type": "dropdown", "placeholder": "Approve", "data": [{"title": "Approve", "value": "1"},{"title": "Automerge", "value": "2"},{"title": "Force merge", "value": "3"},{"title": "Squash merge", "value": "4"}] }
 # @raycast.argument2 { "type": "text", "placeholder": "Review body text", "optional": true }
 
-url=`safari-ctl`
 repo=`echo $url | sed -e 's,https://github.com/[^/]*/\([^/^#]*\).*,\1,g'`
 owner=`echo $url | sed -e 's,https://github.com/\([^/]*\)/[^/^#]*.*,\1,g'`
+
+url=$(osascript <<EOF
+tell application "Safari"
+    tell application "System Events"
+        tell process "Safari"
+            set winName to name of (first window whose value of attribute "AXMain" is true)
+        end tell
+    end tell
+
+    repeat with w in windows
+        if name of w is winName then
+            return URL of current tab of w
+        end if
+    end repeat
+end tell
+EOF
+)
 
 cd ~/Projects/$repo/ > /dev/null 2>&1
 
