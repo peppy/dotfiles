@@ -143,9 +143,6 @@ customCommands:
     command: "./UseLocal{{index .PromptResponses 0}}.sh"
     context: 'files'
     loadingText: 'creating local references'
-  - key: 'G'
-    command: "gh pr view --web"
-    context: 'localBranches'
   - key: 'D'
     prompts:
       - type: 'menu'
