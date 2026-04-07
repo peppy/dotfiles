@@ -103,42 +103,34 @@ fi
 
 echo "Added task"
 
-# select the newly added task
-osascript <<EOF
-tell application "Things3"
-	set matchIndex to 0
-	repeat with i from 1 to count of to dos of list "Today"
-		if name of item i of to dos of list "Today" contains "$task_title" then
-			set matchIndex to i
-			exit repeat
-		end if
-	end repeat
-	activate
-end tell
+osascript - "$task_title" <<'EOF'
+on run argv
+    set targetName to item 1 of argv
 
-if matchIndex > 0 then
-	delay 0.3
 	tell application "System Events" to tell process "Things3"
-		set allH to size of every row of table 1 of scroll area 1 of window "Today"
-		set n to 0
-		repeat with i from 1 to count of allH
-			if item 2 of item i of allH = 36 then
-				if i < (count of allH) and item 2 of item (i + 1) of allH = 36 then
-					set n to n + 1
-					if n = matchIndex then
-						set selected of row i of table 1 of scroll area 1 of window "Today" to true
-						exit repeat
-					end if
+		set frontmost to true
+		repeat 100 times
+			delay 0.01
+			if frontmost then exit repeat
+		end repeat
+		key code 53
+		set theTable to table 1 of scroll area 1 of window "Today"
+		set rowCount to count of rows of theTable
+		repeat with i from 1 to rowCount
+			key code 125
+            delay 0.01
+			tell application "Things3"
+				set sel to selected to dos
+				if (count of sel) > 0 then
+					if name of item 1 of sel is targetName then return true
 				end if
-			end if
+			end tell
 		end repeat
 	end tell
-end if
+
+	return false
+end run
 EOF
-
-# osascript -e 'tell application "Safari" to activate'
-
-# osascript -e 'tell application "Safari" to do JavaScript "location.reload();" in document 1'
 
 if [ "$1" -eq 1 ]; then
     gh pr checkout $url
