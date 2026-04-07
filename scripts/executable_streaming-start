@@ -32,10 +32,6 @@ pkill -x "Keychain Access"
 pkill -x "IINA"
 pkill -x "Things3"
 
-echo "Emptying trash..."
-
-rm -rf ~/.Trash/*
-
 echo "Starting streaming apps..."
 
 open /Applications/Audio\ Hijack.app
