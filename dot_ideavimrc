@@ -48,6 +48,7 @@ map <Leader>F   <Action>(FindInPath)
 
 # WHAT THE FUCK at case differences??
 map <Leader>gc  <Action>(GitHub.Copy.Link)
+map <Leader>gr  <Action>(Github.Pull.Request.Review.In.Editor.Toggle)
 map <Leader>go  <Action>(Github.Open.In.Browser)
 map <Leader>G   <Action>(Github.Open.In.Browser)
 

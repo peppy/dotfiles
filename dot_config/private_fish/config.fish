@@ -28,12 +28,17 @@ export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 export FZF_TMUX=1
 export FZF_TMUX_OPTS="-p 80%"
 
-set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden'
-set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+export GH_TELEMETRY=false
+export DO_NOT_TRACK=true
 
-# Additional options for better UX
-set -gx FZF_CTRL_T_OPTS '--height 80% --layout=reverse --border --preview "head -100 {}"'
-set -gx FZF_DEFAULT_OPTS '--height 80% --layout=reverse --border'
+export OSU_SDL3=1
+
+# set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden'
+# set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+
+# # Additional options for better UX
+# set -gx FZF_CTRL_T_OPTS '--height 80% --layout=reverse --border --preview "head -100 {}"'
+# set -gx FZF_DEFAULT_OPTS '--height 80% --layout=reverse --border'
 
 alias ls='eza'
 

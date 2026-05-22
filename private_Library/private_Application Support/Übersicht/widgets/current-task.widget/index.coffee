@@ -1,5 +1,5 @@
 command: "osascript /Users/dean/scripts/next-task.applescript"
-refreshFrequency: 1000
+refreshFrequency: 200
 
 style: """
   bottom: 0
