@@ -40,12 +40,6 @@ let g:gruvbox_invert_selection='0'
 let g:WhiplashProjectsDir = "~/Projects/"
 let g:WhiplashConfigDir = "~/.vim/whiplash"
 
-autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
-
-" tmux title update
-autocmd BufEnter * call system("tmux rename-window \"vim (" . expand("%:t") . ")\"")
-autocmd VimLeave * call system("tmux set-window-option automatic-rename on")
-
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'dense-analysis/ale'
@@ -78,8 +72,6 @@ endif
 
 " colorscheme Tomorrow-Night
 colorscheme gruvbox
-
-
 
 filetype plugin indent on
 
@@ -143,15 +135,20 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" go to definition using simple ripgrep
-set grepprg=rg\ --vimgrep\ --smart-case
-set grepformat=%f:%l:%c:%m
-nnoremap gd :silent grep! -w <C-R><C-W><CR>:copen<CR>
-
 if has('nvim')
+    " go to definition using simple ripgrep
+    set grepprg=rg\ --vimgrep\ --smart-case
+    set grepformat=%f:%l:%c:%m
+    nnoremap gd :silent grep! -w <C-R><C-W><CR>:copen<CR>
+
     nnoremap <silent> <S-Tab> :copen<CR>
     nnoremap <silent> <Esc><Esc> :if &buftype ==# 'quickfix' \| cclose \| else \| noh \| endif<CR>
+
+    autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
+    " tmux title update
+    autocmd BufEnter * call system("tmux rename-window \"vim (" . expand("%:t") . ")\"")
+    autocmd VimLeave * call system("tmux set-window-option automatic-rename on")
+
+    autocmd BufWritePre <buffer> %s/\s\+$//e
 endif
 
-
-autocmd BufWritePre <buffer> %s/\s\+$//e
